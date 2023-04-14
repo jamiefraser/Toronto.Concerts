@@ -1,0 +1,24 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager navManager;
+<div class="page">
+    <main>
+        @if (navManager.Uri != "app://0.0.0.0/")
+        {
+            <div class="top-row px-4">
+
+                <FluentButton @onclick="@(async (args) =>
+                                      {
+                                          navManager.NavigateTo("/");
+                                      })">
+
+                    <p>Done</p>
+
+                </FluentButton>
+
+            </div>
+        }
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

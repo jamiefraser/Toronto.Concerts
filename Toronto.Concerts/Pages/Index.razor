@@ -1,0 +1,50 @@
+﻿@page "/"
+@inject Toronto.Concerts.Services.IConcertDataService concertService;
+@inject NavigationManager UriHelper
+
+@if (concertService.Busy)
+{
+    <Microsoft.Fast.Components.FluentUI.FluentProgressRing />
+
+}
+else
+{
+    foreach (var item in concertService.Concerts.GroupBy(c => c.DateAndTime.Date))
+    {
+        <p>@item.Key.DayOfWeek @item.Key.ToString("MMMM dd")</p>
+        <div class="row">
+            @foreach (var concert in item)
+            {
+                var path = $"/concert-detail/{concert.date}/{concert.venue}/{concert.description}";
+                <div class="column">
+                    <FluentButton @onclick="@(async(args) =>
+                                              {
+                                                  concertService.SelectedConcert = concert;
+                                                  UriHelper.NavigateTo("/concert-detail");
+                                                  //await (((NavigationPage)App.Current.MainPage).Navigation.PushAsync(((NavigationPage)App.Current.MainPage).CurrentPage));
+                                              })">
+                        <div class="grid-item grow">
+                            @concert.title
+                            <br />
+                            @concert.presenter
+                            <br />
+                        </div>
+                    </FluentButton>
+                </div>
+            }
+        </div>
+
+    }
+}
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        if (concertService.Concerts == null || concertService.Concerts.Count() == 0)
+        {
+            await concertService.GetConcerts();
+        }
+        System.Diagnostics.Debug.WriteLine($"Current URI is {UriHelper.Uri}");
+        await base.OnInitializedAsync();
+    }
+}

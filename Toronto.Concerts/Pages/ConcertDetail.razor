@@ -1,0 +1,15 @@
+﻿@page "/concert-detail"
+@inject NavigationManager UriHelper;
+@inject Toronto.Concerts.Services.IConcertDataService concertService;
+<h3>@concertService.SelectedConcert.title</h3>
+@concertService.SelectedConcert.DateAndTime
+<br />
+@concertService.SelectedConcert.presenter
+<br />
+@concertService.SelectedConcert.title
+<div style="position:absolute;bottom:0;right:0">
+    @concertService.SelectedConcert.prices
+</div>
+@code {
+
+}
