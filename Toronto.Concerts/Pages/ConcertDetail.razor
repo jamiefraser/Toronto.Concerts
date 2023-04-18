@@ -2,14 +2,44 @@
 @inject NavigationManager UriHelper;
 @inject Toronto.Concerts.Services.IConcertDataService concertService;
 <h3>@concertService.SelectedConcert.title</h3>
-@concertService.SelectedConcert.DateAndTime
-<br />
-@concertService.SelectedConcert.presenter
-<br />
-@concertService.SelectedConcert.title
-<div style="position:absolute;bottom:0;right:0">
-    @concertService.SelectedConcert.prices
+<div style="height:88vh;width:90vw;position:absolute;margin:0px 0px 2px 4px">
+    <h4>@concertService.SelectedConcert.DateAndTime.DayOfWeek @concertService.SelectedConcert.DateAndTime.ToString("MMMM dd hh:mm tt")</h4>
+
+    @concertService.SelectedConcert.description
+    
+    <h3>Repertoire</h3>
+    <h4>
+        @concertService.SelectedConcert.repertoire
+    </h4>
+    
+    <h3>Performers</h3>
+    <h5>
+        @if (!string.IsNullOrEmpty(concertService.SelectedConcert.performers))
+        {
+            @concertService.SelectedConcert.performers
+        }
+        else
+        {
+            <p>Not Available</p>
+        }
+    </h5>
+    
+    <h3>Presented By</h3>
+    <h5>
+        @concertService.SelectedConcert.presenter
+    </h5>
+    
+    <h3>Location</h3>
+    <h5>
+        @concertService.SelectedConcert.venue
+    </h5>
+    
+    @*Let's add a map here some time*@
+    <div style="position:absolute;bottom:0;right:0" class="h3">
+        @concertService.SelectedConcert.prices
+    </div>
 </div>
+
 @code {
 
 }

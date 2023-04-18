@@ -24,7 +24,7 @@ namespace Toronto.Concerts.Data
         {
             get
             {
-                return DateTimeOffset.FromUnixTimeSeconds(long.Parse(date)).DateTime;
+                return DateTimeOffset.FromUnixTimeSeconds(long.Parse(date)).LocalDateTime;
             }
         }
     }

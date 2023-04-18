@@ -1,7 +1,6 @@
 ﻿@page "/"
 @inject Toronto.Concerts.Services.IConcertDataService concertService;
 @inject NavigationManager UriHelper
-
 @if (concertService.Busy)
 {
     <Microsoft.Fast.Components.FluentUI.FluentProgressRing />
@@ -9,42 +8,94 @@
 }
 else
 {
-    foreach (var item in concertService.Concerts.GroupBy(c => c.DateAndTime.Date))
-    {
-        <p>@item.Key.DayOfWeek @item.Key.ToString("MMMM dd")</p>
-        <div class="row">
-            @foreach (var concert in item)
+    <FluentAccordion ExpandMode="AccordionExpandMode.Single">
+         @{ 
+             var grouped = concertService.Concerts.GroupBy(c => c.DateAndTime.Date);
+         }
+        @foreach (var item in grouped)
+        {
+            string heading = string.Empty;
+            try
             {
-                var path = $"/concert-detail/{concert.date}/{concert.venue}/{concert.description}";
-                <div class="column">
-                    <FluentButton @onclick="@(async(args) =>
-                                              {
-                                                  concertService.SelectedConcert = concert;
-                                                  UriHelper.NavigateTo("/concert-detail");
-                                                  //await (((NavigationPage)App.Current.MainPage).Navigation.PushAsync(((NavigationPage)App.Current.MainPage).CurrentPage));
-                                              })">
-                        <div class="grid-item grow">
-                            @concert.title
-                            <br />
-                            @concert.presenter
-                            <br />
-                        </div>
-                    </FluentButton>
-                </div>
+                heading = $"{item.Key.DayOfWeek} {item.Key.ToString("MMMM dd")} ({item.Count()})";
+                if (item.Key.Date.Equals(DateTime.Now.Date))
+                {
+                    heading = $"Today ({item.Count()})";
+                }
+                if (item.Key.Date.Equals(DateTime.Now.AddDays(1).Date))
+                {
+                    heading = $"Tomorrow ({item.Count()})";
+                }
             }
-        </div>
+            catch(Exception ex)
+                    {
 
-    }
+                    }
+            <FluentAccordionItem Heading="@heading" Expanded="false">
+                <Radzen.Blazor.RadzenRow>
+
+                    @foreach (var concert in item)
+                    {
+                        string img = getImageNameForTile(concert);
+                       
+                        <Radzen.Blazor.RadzenColumn>
+                            <RadzenButton Click="@(async(args) =>
+                                              {
+                        concertService.SelectedConcert = concert;
+                        UriHelper.NavigateTo("/concert-detail");
+                    })"
+                                          Class="grid-item grow"
+                                          Variant="Variant.Outlined"
+                                          ButtonStyle="@(!string.IsNullOrEmpty(img) ? ButtonStyle.Light : ButtonStyle.Secondary)"
+                                          ButtonType="Radzen.ButtonType.Button"
+                                          >
+                                <table style="background-image: url('@img'); align-self:center">
+                                    
+                                    <tr>
+                                        <td>
+                                            <p style="font-weight:bold">@concert.title</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p style="font-size:smaller;vertical-align:bottom">@concert.presenter</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </RadzenButton>
+                        </Radzen.Blazor.RadzenColumn>}
+                </Radzen.Blazor.RadzenRow>
+            </FluentAccordionItem>
+        }
+    </FluentAccordion>
 }
 @code
 {
+    private string getImageNameForTile(Data.Concert concert)
+    {
+        if (concert.performers.Contains("choir", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("elmer iseler", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("singers", StringComparison.InvariantCultureIgnoreCase)|| concert.presenter.Contains("singers", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("choir", StringComparison.InvariantCultureIgnoreCase))
+            return "/choir_2.jpg";
+        if (concert.performers.Contains("orchestra", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("orchestra", StringComparison.InvariantCultureIgnoreCase))
+            return "/orchestra.jpg";
+        if (concert.performers.Contains("symphony", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("symphony", StringComparison.InvariantCultureIgnoreCase))
+            return "/orchestra.jpg";
+        if (concert.performers.Contains("opera", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("opera", StringComparison.InvariantCultureIgnoreCase))
+            return "/opera.jpg";
+        if (concert.performers.Contains("piano", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("piano", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("piano", StringComparison.InvariantCultureIgnoreCase))
+            return "/piano.jpg";
+        if (concert.performers.Contains("organ", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("organ", StringComparison.InvariantCultureIgnoreCase))
+            return "/organ.jpg";
+        if (concert.performers.Contains("chamber", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("chamber", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("quartet", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("quartet", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("ensemble", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("ensemble", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("consort", StringComparison.InvariantCultureIgnoreCase))
+            return "/chamber_music.jpg";
+
+        return string.Empty;
+    }
     protected override async Task OnInitializedAsync()
     {
         if (concertService.Concerts == null || concertService.Concerts.Count() == 0)
         {
             await concertService.GetConcerts();
         }
-        System.Diagnostics.Debug.WriteLine($"Current URI is {UriHelper.Uri}");
         await base.OnInitializedAsync();
     }
 }

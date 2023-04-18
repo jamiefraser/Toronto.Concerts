@@ -9,9 +9,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button x:Name="BackButton"
-                Style="{StaticResource NavigationBackButtonNormalStyle}"
-                Grid.Row="0"/>
         <!--<Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="True" />
     </Shell.BackButtonBehavior>-->

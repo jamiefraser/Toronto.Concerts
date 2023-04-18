@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Fast.Components.FluentUI;
 using Toronto.Concerts.Data;
 using Toronto.Concerts.Services;
 
@@ -25,7 +26,8 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<WeatherForecastService>();
 		builder.Services.AddSingleton<IConcertDataService,ConcertDataService>();
-		
-		return builder.Build();
+        builder.Services.AddFluentUIComponents();
+
+        return builder.Build();
 	}
 }

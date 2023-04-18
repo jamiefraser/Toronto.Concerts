@@ -2,8 +2,9 @@
 @inject NavigationManager navManager;
 <div class="page">
     <main>
-        @if (navManager.Uri != "app://0.0.0.0/")
+        @if (navManager.Uri != "app://0.0.0.0/" && navManager.Uri != "https://0.0.0.0/")
         {
+            System.Diagnostics.Debug.WriteLine($"The current Uri is {navManager.Uri}");
             <div class="top-row px-4">
 
                 <FluentButton @onclick="@(async (args) =>
