@@ -46,10 +46,14 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+      <CreatePackage>false</CreatePackage>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+      <CreatePackage>false</CreatePackage>
+      <CodesignProvision>Concerts - iOS App Store</CodesignProvision>
+      <CodesignKey>iPhone Distribution</CodesignKey>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
@@ -72,9 +76,6 @@
         <!-- App Icon -->
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\kh2.jpg" BaseSize="834,1034" Resize="false" />
-
-        <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
         <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 		        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
@@ -99,7 +100,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#000000" />
+      <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#FF0000" />
     </ItemGroup>
 
     <ItemGroup>
