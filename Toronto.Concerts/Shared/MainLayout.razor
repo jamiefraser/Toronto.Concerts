@@ -8,7 +8,13 @@
         {
             <div class="top-row px-4">
                 <div style="position:absolute;left:0" class="h3">
-                    <FluentButton @onclick="async() => { await calendarService.AddEventToCalendar(concertService.SelectedConcert.DateAndTime, concertService.SelectedConcert.DateAndTime.AddHours(2), concertService.SelectedConcert.title, concertService.SelectedConcert.description, concertService.SelectedConcert.venue); }">
+                    <FluentButton @onclick="async() => { 
+                                                var result = await calendarService.AddEventToCalendar(concertService.SelectedConcert.DateAndTime, concertService.SelectedConcert.DateAndTime.AddHours(2), concertService.SelectedConcert.title, concertService.SelectedConcert.description, concertService.SelectedConcert.venue); 
+                                                if(!result.isAdded)
+                                                {
+                                                    
+                                                }
+                                            }">
                         Add to Calendar
                     </FluentButton>
                 </div>
