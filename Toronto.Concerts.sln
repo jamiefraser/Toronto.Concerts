@@ -7,21 +7,29 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM64 = Debug|ARM64
 		Release|Any CPU = Release|Any CPU
+		Release|ARM64 = Release|ARM64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B56130F5-681A-4191-8463-100E6A93DFF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B56130F5-681A-4191-8463-100E6A93DFF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B56130F5-681A-4191-8463-100E6A93DFF9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B56130F5-681A-4191-8463-100E6A93DFF9}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{B56130F5-681A-4191-8463-100E6A93DFF9}.Debug|ARM64.Build.0 = Debug|ARM64
+		{B56130F5-681A-4191-8463-100E6A93DFF9}.Debug|ARM64.Deploy.0 = Debug|ARM64
 		{B56130F5-681A-4191-8463-100E6A93DFF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B56130F5-681A-4191-8463-100E6A93DFF9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B56130F5-681A-4191-8463-100E6A93DFF9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B56130F5-681A-4191-8463-100E6A93DFF9}.Release|ARM64.ActiveCfg = Release|ARM64
+		{B56130F5-681A-4191-8463-100E6A93DFF9}.Release|ARM64.Build.0 = Release|ARM64
+		{B56130F5-681A-4191-8463-100E6A93DFF9}.Release|ARM64.Deploy.0 = Release|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {900AF5E7-ECF2-454F-B770-67C3317C7412}
-		SolutionGuid = {900AF5E7-ECF2-454F-B770-67C3317C7412}
+		        SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
 	EndGlobalSection
 EndGlobal

@@ -31,6 +31,7 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
         <ApplicationInsightsResourceId>/subscriptions/1c0a0679-436b-4942-95fd-a5542e0d13a1/resourceGroups/jf-Concerts-rg/providers/microsoft.insights/components/concerts-ai</ApplicationInsightsResourceId>
         <UserSecretsId>d0d95b29-3ce9-4a0b-ad04-9c3ea851ea05</UserSecretsId>
+        <Platforms>AnyCPU;ARM64</Platforms>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-ios'">
@@ -43,11 +44,24 @@
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|ARM64'">
+      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|ARM64'">
+      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+      <BuildIpa>False</BuildIpa>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|ARM64'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
       <BuildIpa>False</BuildIpa>
     </PropertyGroup>
@@ -57,7 +71,16 @@
       <BuildIpa>False</BuildIpa>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|ARM64'">
+      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+      <BuildIpa>False</BuildIpa>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
+      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|ARM64'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
     </PropertyGroup>
 
@@ -65,11 +88,23 @@
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|ARM64'">
+      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041.0|AnyCPU'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041.0|ARM64'">
+      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|AnyCPU'">
+      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|ARM64'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
     </PropertyGroup>
 
