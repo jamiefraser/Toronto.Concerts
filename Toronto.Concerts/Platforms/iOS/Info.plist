@@ -30,5 +30,7 @@
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>CFBundleIdentifier</key>
 	<string></string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Please allow permissions to read and write to the calendar</string>
 </dict>
 </plist>

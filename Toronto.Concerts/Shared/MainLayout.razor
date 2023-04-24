@@ -1,19 +1,25 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager navManager;
+@inject Toronto.Concerts.Services.ICalendarService calendarService;
+@inject Toronto.Concerts.Services.IConcertDataService concertService
 <div class="page">
     <main>
         @if (navManager.Uri != "app://0.0.0.0/" && navManager.Uri != "https://0.0.0.0/")
         {
-            System.Diagnostics.Debug.WriteLine($"The current Uri is {navManager.Uri}");
             <div class="top-row px-4">
-
+                <div style="position:absolute;left:0" class="h3">
+                    <FluentButton @onclick="async() => { await calendarService.AddEventToCalendar(concertService.SelectedConcert.DateAndTime, concertService.SelectedConcert.DateAndTime.AddHours(2), concertService.SelectedConcert.title, concertService.SelectedConcert.description, concertService.SelectedConcert.venue); }">
+                        Add to Calendar
+                    </FluentButton>
+                </div>
                 <FluentButton @onclick="@(async (args) =>
                                       {
                                           navManager.NavigateTo("/");
-                                      })">
+                                      })"
+                              Appearance="Appearance.Hypertext"
+                              Value="Done">
 
-                    <p>Done</p>
-
+                    Done
                 </FluentButton>
 
             </div>

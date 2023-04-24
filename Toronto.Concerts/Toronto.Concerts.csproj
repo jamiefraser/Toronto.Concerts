@@ -29,11 +29,14 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+        <ApplicationInsightsResourceId>/subscriptions/1c0a0679-436b-4942-95fd-a5542e0d13a1/resourceGroups/jf-Concerts-rg/providers/microsoft.insights/components/concerts-ai</ApplicationInsightsResourceId>
+        <UserSecretsId>d0d95b29-3ce9-4a0b-ad04-9c3ea851ea05</UserSecretsId>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-ios'">
       <CodesignKey>Apple Development: Created via API (UC7YYWCBU3)</CodesignKey>
       <CodesignProvision>VS: WildCard Development</CodesignProvision>
+      <ProvisioningType>automatic</ProvisioningType>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
@@ -46,10 +49,12 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+      <BuildIpa>False</BuildIpa>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
+      <BuildIpa>False</BuildIpa>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
@@ -72,13 +77,11 @@
         <!-- App Icon -->
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\kh2.jpg" BaseSize="834,1034" Resize="false" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" />
 
-        <!-- Images -->
+		<!-- Images -->
         <MauiImage Include="Resources\Images\*" />
-        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
-		        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
-
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" TintColor="Yellow" />
 
 		<!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
@@ -88,25 +91,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <MauiImage Remove="Resources\Images\kh.jpg" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Resources\Images\choir_1.jpg" />
-      <None Remove="Resources\Images\choir_2.jpg" />
-      <None Remove="Resources\Images\choir_3.jpg" />
-      <None Remove="Resources\Images\kh.jpg" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#000000" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <MauiSplashScreen Include="Resources\Splash\kh.jpg" BaseSize="420,350" />
-    </ItemGroup>
-
-    <ItemGroup>
+        <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.15.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
         <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.1.4" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

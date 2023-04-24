@@ -1,6 +1,8 @@
 ﻿@page "/"
 @inject Toronto.Concerts.Services.IConcertDataService concertService;
 @inject NavigationManager UriHelper
+
+
 @if (concertService.Busy)
 {
     <Microsoft.Fast.Components.FluentUI.FluentProgressRing />
@@ -49,7 +51,7 @@ else
                                           ButtonStyle="@(!string.IsNullOrEmpty(img) ? ButtonStyle.Light : ButtonStyle.Secondary)"
                                           ButtonType="Radzen.ButtonType.Button"
                                           >
-                                <table style="background-image: url('@img'); align-self:center">
+                                <table style="background-image: url('@img'); align-self:center;background-color:black">
                                     
                                     <tr>
                                         <td>
@@ -88,7 +90,7 @@ else
         if (concert.performers.Contains("chamber", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("chamber", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("quartet", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("quartet", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("ensemble", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("ensemble", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("consort", StringComparison.InvariantCultureIgnoreCase))
             return "/chamber_music.jpg";
 
-        return string.Empty;
+        return "/3_fiddlers_in_silhouette.svg";
     }
     protected override async Task OnInitializedAsync()
     {
