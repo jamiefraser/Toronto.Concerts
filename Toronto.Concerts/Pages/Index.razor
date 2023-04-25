@@ -96,7 +96,7 @@ else
     {
         if (concertService.Concerts == null || concertService.Concerts.Count() == 0)
         {
-            await concertService.GetConcerts();
+            //await concertService.GetConcerts();
         }
         await base.OnInitializedAsync();
     }
