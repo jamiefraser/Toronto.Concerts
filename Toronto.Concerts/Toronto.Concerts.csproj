@@ -186,6 +186,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
         <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.2.0" />
+        <PackageReference Include="MonkeyCache.FileStore" Version="2.0.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Radzen.Blazor" Version="4.10.0" />
         <PackageReference Include="Swart.ApplicationInsights.MAUI" Version="1.0.1" />

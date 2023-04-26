@@ -7,7 +7,6 @@
 @if (concertService.Busy)
 {
     <Microsoft.Fast.Components.FluentUI.FluentProgressRing />
-
 }
 else
 {
@@ -36,7 +35,7 @@ else
                 {
 
                 }
-                <FluentAccordionItem Heading="@heading" Expanded="false">
+                <FluentAccordionItem Heading="@heading" Expanded="false" @onexpandedchange="@ExpandedChanged" @key="@heading">
                     <Radzen.Blazor.RadzenRow>
 
                         @foreach (var concert in item)
@@ -85,10 +84,13 @@ else
 @code
 {
     protected ErrorRenderer errorRenderer = default!;
+    void ExpandedChanged(TreeChangeEventArgs args)
+    {
+        System.Diagnostics.Debug.WriteLine($"TreeChanged - {args.AffectedId}");
+    }
+
     protected override void OnParametersSet()
     {
-        errorRenderer?.Recover();
-        base.OnParametersSet();
     }
     private string getImageNameForTile(Data.Concert concert)
     {
@@ -111,10 +113,25 @@ else
     }
     protected override async Task OnInitializedAsync()
     {
+        System.Diagnostics.Debug.WriteLine("OnInitalizedAsync");
         if (concertService.Concerts == null || concertService.Concerts.Count() == 0)
         {
+            System.Diagnostics.Debug.WriteLine("GetConcerts from OnInitializedAsync");
             await concertService.GetConcerts();
         }
         await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        System.Diagnostics.Debug.WriteLine(nameof(OnParametersSetAsync));
+        if (concertService.Concerts == null || concertService.Concerts.Count() == 0)
+        {
+            System.Diagnostics.Debug.WriteLine($"GetConcerts from {nameof(OnParametersSetAsync)}");
+            await concertService.GetConcerts();
+            StateHasChanged();
+        }
+        errorRenderer?.Recover();
+        await base.OnParametersSetAsync();
     }
 }
