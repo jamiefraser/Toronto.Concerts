@@ -33,7 +33,9 @@
         <UserSecretsId>d0d95b29-3ce9-4a0b-ad04-9c3ea851ea05</UserSecretsId>
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
-
+    <PropertyGroup>
+        <UseInterpreter>true</UseInterpreter>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(TargetFramework)'=='net6.0-ios'">
       <CodesignKey>Apple Development: Created via API (UC7YYWCBU3)</CodesignKey>
       <CodesignProvision>VS: WildCard Development</CodesignProvision>
@@ -59,6 +61,7 @@
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
       <BuildIpa>False</BuildIpa>
+      <CreatePackage>false</CreatePackage>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|ARM64'">
@@ -68,7 +71,7 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
       <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-      <BuildIpa>False</BuildIpa>
+      <BuildIpa>true</BuildIpa>
       <CreatePackage>false</CreatePackage>
     </PropertyGroup>
 

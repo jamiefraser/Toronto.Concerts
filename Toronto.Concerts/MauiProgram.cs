@@ -28,9 +28,11 @@ public static class MauiProgram
 #endif
 #if IOS
         builder.Services.AddSingleton<ICalendarService, Toronto.Concerts.Platforms.iOS.CalendarService>();
+#elif ANDROID
+        builder.Services.AddSingleton<ICalendarService, Toronto.Concerts.Platforms.Android.CalendarService>();
 #endif
 #if ANDROID
-        //builder.Services.AddSingleton<ICalendarService, Toronto.Concerts.Platforms.Android.CalendarService>();
+        //
 #endif
         //builder.Services.AddSingleton<WeatherForecastService>();
         builder.Services.AddSingleton<IConcertDataService, ConcertDataService>();
