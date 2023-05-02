@@ -15,5 +15,9 @@ namespace Toronto.Concerts.Services
         Task<bool> GetConcerts();
         public bool Busy { get; set; }
         public Concert SelectedConcert { get; set; }
+        public IEnumerable<IGrouping<string, Concert>> GroupedConcerts { get; }
+        public List<string> Dates { get; }
+        public string SelectedDate { get; set; }
+        public List<Concert> ConcertsOnSelectedDate { get; }
     }
 }

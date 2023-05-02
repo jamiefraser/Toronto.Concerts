@@ -1,5 +1,7 @@
 ﻿using MonkeyCache.FileStore;
+using PanCardView.Extensions;
 using System.ComponentModel;
+using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
 using Toronto.Concerts.Data;
@@ -9,6 +11,108 @@ namespace Toronto.Concerts.Services
     public class ConcertDataService : IConcertDataService
     {
         HttpClient _client;
+        public List<Concert> ConcertsOnSelectedDate
+        {
+            get
+            {
+                if (groupedConcerts != null && !string.IsNullOrEmpty(selectedDate))
+                {
+                    if (selectedDate.Equals("Today"))
+                    {
+                        return groupedConcerts.Where(gc => gc.Key.Equals(DateTime.Now.Date.ToString("MMM dd"))).ToList().FirstOrDefault().ToList();
+                    }
+                    else
+                    {
+                        if (selectedDate.Equals("Tomorrow"))
+                        {
+                            return groupedConcerts.Where(gc => gc.Key.Equals(DateTime.Now.AddDays(1).Date.ToString("MMM dd"))).ToList().FirstOrDefault().ToList();
+                        }
+                        else
+                        {
+                            return groupedConcerts.Where(gc => gc.Key.Equals(selectedDate)).ToList().FirstOrDefault().ToList();
+                        }
+                    }
+                }
+                return new List<Concert>();
+            }
+        }
+        private string selectedDate;
+        public string SelectedDate
+        {
+            get
+            { return selectedDate; }
+            set
+            {
+                if (selectedDate != value)
+                {
+                    selectedDate = value;
+                    RaisePropertyChanged(nameof(SelectedDate));
+                    RaisePropertyChanged(nameof(ConcertsOnSelectedDate));
+                }
+            }
+        }
+        private IEnumerable<IGrouping<string, Concert>> groupedConcerts;
+        public IEnumerable<IGrouping<string, Concert>> GroupedConcerts
+        {
+            get
+            {
+                return groupedConcerts;
+            }
+            private set
+            {
+                if (groupedConcerts != value)
+                {
+                    //List<Grouping<string, Concert>> tmp = new List<Grouping<string, Concert>>();
+                    //foreach(var item in value)
+                    //{
+                    //    if(item.Key.Equals(DateTime.Now.Date.ToString("MMM dd")))
+                    //    {
+                    //        tmp.Add(new Grouping<string, Concert>("Today", item.ToList()));
+
+                    //    }
+                    //}
+                    groupedConcerts = value;
+                    RaisePropertyChanged(nameof(GroupedConcerts));
+                    RaisePropertyChanged(nameof(Dates));
+                }
+            }
+        }
+        private async Task PopulateDates()
+        {
+
+        }
+        public List<string> Dates
+        {
+            get
+            {
+                if (groupedConcerts != null)
+                {
+                    var dates = groupedConcerts.Select(gc => gc.Key).ToList();
+                    var retDates = new List<string>();
+                    foreach (string date in dates)
+                    {
+                        if (date.Equals(DateTime.Now.Date.ToString("MMM dd")))
+                        {
+                            retDates.Add("Today");
+                        }
+                        else
+                        {
+                            if (date.Equals(DateTime.Now.AddDays(1).Date.ToString("MMM dd")))
+                            {
+                                retDates.Add("Tomorrow");
+                            }
+                            else
+                            {
+                                retDates.Add(date);
+                            }
+                        }
+                    }
+                    SelectedDate = retDates.FirstOrDefault();
+                    return retDates;
+                }
+                return new List<string>();
+            }
+        }
         private List<Concert> concerts = new List<Concert>();
         public ConcertDataService()
         {
@@ -64,6 +168,7 @@ namespace Toronto.Concerts.Services
                 {
                     concerts = value;
                     RaisePropertyChanged(nameof(Concerts));
+                    RaisePropertyChanged(nameof(Dates));
                 }
             }
         }
@@ -81,6 +186,7 @@ namespace Toronto.Concerts.Services
             if (!Barrel.Current.IsExpired(key: url))
             {
                 Concerts = Barrel.Current.Get<IEnumerable<Concert>>(key: url).ToList();
+                GroupedConcerts = Concerts.GroupBy(c => c.DateAndTime.Date.ToString("MMM dd"));
                 return Concerts;
             }
 
@@ -105,7 +211,7 @@ namespace Toronto.Concerts.Services
             var json = await concertsResponse.Content.ReadAsStringAsync();
             System.Diagnostics.Debug.WriteLine(json);
             Concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(json);
-
+            GroupedConcerts = Concerts.GroupBy(c => c.DateAndTime.Date.ToString("MMM dd"));
             //Saves the cache and pass it a timespan for expiration
             Barrel.Current.Add(key: url, data: concerts, expireIn: TimeSpan.FromDays(1));
             return concerts;

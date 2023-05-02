@@ -1,4 +1,5 @@
-﻿using EventKit;
+﻿#if IOS
+using EventKit;
 using Foundation;
 using System;
 using System.Collections.Generic;
@@ -78,3 +79,4 @@ namespace Toronto.Concerts.Platforms.iOS
         }
     }
 }
+#endif

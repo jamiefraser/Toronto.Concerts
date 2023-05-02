@@ -27,5 +27,12 @@ namespace Toronto.Concerts.Data
                 return DateTimeOffset.FromUnixTimeSeconds(long.Parse(date)).LocalDateTime;
             }
         }
+        public string GroupableDate
+        {
+            get
+            {
+                return DateAndTime.ToString("MMM dd");
+            }
+        }
     }
 }

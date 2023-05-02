@@ -4,6 +4,7 @@ using Microsoft.Maui.Controls.PlatformConfiguration;
 using Toronto.Concerts.Data;
 using Toronto.Concerts.Services;
 using MauiInsights;
+using Syncfusion.Blazor;
 
 namespace Toronto.Concerts;
 
@@ -11,6 +12,7 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTg1Mjc5NUAzMjMxMmUzMTJlMzMzNUlCVkpJODlrSW9keVpyYlh6UnNHSWVUVnhnTjM4L3pibk5rajkwYSsyWDg9");
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
@@ -21,9 +23,14 @@ public static class MauiProgram
             });
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents();
+        builder.Services.AddSyncfusionBlazor(options =>
+        {
+            options.EnableRippleEffect = true;
+        });
+
 
 #if DEBUG
-		builder.Services.AddBlazorWebViewDeveloperTools();
+        builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
 #if IOS

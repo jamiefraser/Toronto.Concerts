@@ -190,6 +190,7 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Radzen.Blazor" Version="4.10.0" />
         <PackageReference Include="Swart.ApplicationInsights.MAUI" Version="1.0.1" />
+        <PackageReference Include="Syncfusion.Blazor.Maps" Version="21.1.41" />
     </ItemGroup>
 
     <ItemGroup>
