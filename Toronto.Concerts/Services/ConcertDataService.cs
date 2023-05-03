@@ -40,15 +40,17 @@ namespace Toronto.Concerts.Services
         public string SelectedDate
         {
             get
-            { return selectedDate; }
+            {
+                RaisePropertyChanged(nameof(ConcertsOnSelectedDate));
+                return selectedDate;
+            }
             set
             {
-                if (selectedDate != value)
-                {
+
                     selectedDate = value;
                     RaisePropertyChanged(nameof(SelectedDate));
                     RaisePropertyChanged(nameof(ConcertsOnSelectedDate));
-                }
+                
             }
         }
         private IEnumerable<IGrouping<string, Concert>> groupedConcerts;
@@ -151,7 +153,12 @@ namespace Toronto.Concerts.Services
             }
             set
             {
-                if (selectedconcert != value)
+                if (value == null && selectedconcert != null)
+                {
+                    RaisePropertyChanged(nameof(SelectedConcert));
+                    return;
+                }
+                if (selectedconcert == null || selectedconcert != value)
                 {
                     selectedconcert = value;
                     RaisePropertyChanged(nameof(SelectedConcert));
@@ -172,6 +179,56 @@ namespace Toronto.Concerts.Services
                 }
             }
         }
+
+        private DateTime lasttimesomethingwasset;
+        public DateTime LastTimeSomethingWasSet
+        {
+            get
+            {
+                return lasttimesomethingwasset;
+            }
+            set
+            {
+                if (lasttimesomethingwasset != value)
+                {
+                    lasttimesomethingwasset = value;
+                    RaisePropertyChanged(nameof(LastTimeSomethingWasSet));
+                }
+            }
+        }
+        private string sharedconcertdate;
+        public string SharedConcertDate
+        {
+            get
+            {
+                return sharedconcertdate;
+            }
+            set
+            {
+                if (sharedconcertdate != value)
+                {
+                    sharedconcertdate = value;
+                    RaisePropertyChanged(nameof(SharedConcertDate));
+                }
+            }
+        }
+        private string sharedconcerttitle;
+        public string SharedConcertTitle
+        {
+            get
+            {
+                return sharedconcerttitle;
+            }
+            set
+            {
+                if(sharedconcerttitle != value)
+                {
+                    sharedconcerttitle = value;
+                    RaisePropertyChanged(nameof(SharedConcertTitle));
+                }
+            }
+        }
+
         async Task<IEnumerable<Concert>> GetConcertsAsync()
         {
             var url = "https://www.thewholenote.com/ludwig/listings/search.php";

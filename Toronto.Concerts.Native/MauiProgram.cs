@@ -37,8 +37,10 @@ namespace Toronto.Concerts.Native
             //builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddSingleton<AppShell>();
             builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<SharedConcertDetailPage>();
             builder.Services.AddSingleton<IConcertDataService, ConcertDataService>();
-            return builder.Build();
+            var app = builder.Build();
+            return app;
         }
     }
 }

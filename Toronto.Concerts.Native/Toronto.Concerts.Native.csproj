@@ -119,6 +119,7 @@
 	  <None Remove="Resources\Images\choir-1.jpg" />
 	  <None Remove="Resources\Images\choir-2.jpg" />
 	  <None Remove="Resources\Images\choir-3.jpg" />
+	  <None Remove="Resources\Images\fiddlers_in_silhouette.svg" />
 	  <None Remove="Resources\Images\opera.jpg" />
 	  <None Remove="Resources\Images\orchestra.jpg" />
 	  <None Remove="Resources\Images\organ.jpg" />
@@ -152,10 +153,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Update="Resources\Images\fiddlers_in_silhouette.svg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </MauiImage>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Controls\AnimatedAccordion.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\MainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SharedConcertDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

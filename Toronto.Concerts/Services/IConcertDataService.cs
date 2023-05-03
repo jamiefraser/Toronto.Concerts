@@ -19,5 +19,8 @@ namespace Toronto.Concerts.Services
         public List<string> Dates { get; }
         public string SelectedDate { get; set; }
         public List<Concert> ConcertsOnSelectedDate { get; }
+        public DateTime LastTimeSomethingWasSet { get; set; }
+        public string SharedConcertDate { get; set; }
+        public string SharedConcertTitle { get; set; }
     }
 }

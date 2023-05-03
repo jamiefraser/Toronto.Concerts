@@ -64,7 +64,6 @@ namespace Toronto.Concerts.Platforms.iOS
                             }
                         }
                     }
-
                 }
                 else
                 {

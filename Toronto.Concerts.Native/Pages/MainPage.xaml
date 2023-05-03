@@ -132,7 +132,8 @@
                                            Text="{Binding spnotes,Converter={StaticResource EmptyTextMessageConverter}}" />
                                     </Grid>
                                     <Button Grid.Row="2" Text="Add to Calendar"
-                                        Opacity=".75"/>
+                                            Opacity=".75"
+                                            Clicked="AddToCalendar_Clicked"/>
 
                                 </Grid>
                             </Grid>

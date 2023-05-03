@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Toronto.Concerts.Native.Pages.SharedConcertDetailPage"
+             xmlns:sfData="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:sfCore="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:sfList="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
+             xmlns:controls="clr-namespace:Toronto.Concerts.Native.Controls"
+             xmlns:data="clr-namespace:Syncfusion.Maui.DataSource;assembly=Syncfusion.Maui.DataSource"
+             xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+             xmlns:converters="clr-namespace:Toronto.Concerts.Native.ValueConverters"
+             Title="SharedConcertDetailPage">
+    <ContentPage.Resources>
+        <converters:PerformerToImageConverter x:Name="PerformerToImageConverter" x:Key="PerformerToImageConverter" />
+        <converters:FriendlyDateConverter  x:Name="FriendlyDateConverter" x:Key="FriendlyDateConverter"/>
+        <converters:EmptyTextMessageConverter x:Name="EmptyTextMessageConverter" x:Key="EmptyTextMessageConverter"/>
+        <converters:DateAndTimeLocalTimeOnlyConverter x:Name="DateAndTimeLocalTimeOnlyConverter" x:Key="DateAndTimeLocalTimeOnlyConverter"/>
+        <converters:FlipBooleanValueConverter x:Name="FlipBooleanValueConverter" x:Key="FlipBooleanValueConverter" />
+    </ContentPage.Resources>
+    <StackLayout Orientation="Vertical"
+                 VerticalOptions="FillAndExpand">
+        <Grid VerticalOptions="FillAndExpand"
+                          >
+            <Image Source="{Binding Converter={StaticResource PerformerToImageConverter}}"
+                               Aspect="AspectFill"
+                               Opacity=".5"/>
+
+            <Grid VerticalOptions="Fill"
+                              Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                               Text="{Binding Concert.title}"
+                               FontAttributes="Bold"
+                               FontSize="Title" 
+                                   HorizontalOptions="Center"/>
+                <Grid Grid.Row="1"
+                                  BackgroundColor="Wheat"
+                                  Opacity=".5"
+                                  VerticalOptions="StartAndExpand"
+                                  Margin="10"
+                                  Padding="10"
+                                  RowSpacing="10"
+                                  ColumnSpacing="10">
+                    <Grid.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="TextColor"
+                                                Value="Black" />
+                            <Setter Property="FontAttributes"
+                                                Value="Bold"/>
+                            <Setter Property="FontSize"
+                                                Value="Header"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="Time:"/>
+                    <Label Grid.Row="1"
+                                           Grid.Column="0"
+                                           Text="Price:"/>
+                    <Label Grid.Row="2"
+                                           Grid.Column="0"
+                                           Text="Performers:"/>
+                    <Label Grid.Row="3"
+                                           Grid.Column="0"
+                                           Text="Repertoire:"/>
+                    <Label Grid.Row="4"
+                                           Grid.Column="0"
+                                           Text="Venue:"/>
+                    <Label Grid.Row="5"
+                                           Grid.Column="0"
+                                           Text="Address:"/>
+                    <Label Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="{Binding Concert.DateAndTime, Converter={StaticResource DateAndTimeLocalTimeOnlyConverter}}"/>
+                    <Label Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{Binding Concert.prices}"/>
+                    <Label Grid.Row="2"
+                                       Grid.Column="1"
+                                       Text="{Binding Concert.performers, Converter={StaticResource EmptyTextMessageConverter}}"/>
+                    <Label Text="{Binding Concert.repertoire,Converter={StaticResource EmptyTextMessageConverter}}"
+                                       Grid.Row="3"
+                                       Grid.Column="1"/>
+                    <Label Grid.Row="4"
+                                       Grid.Column="1"
+                                       Text="{Binding Concert.venue,Converter={StaticResource EmptyTextMessageConverter}}" />
+                    <Label Grid.Row="5"
+                                       Grid.Column="1"
+                                       Text="{Binding Concert.address,Converter={StaticResource EmptyTextMessageConverter}}"/>
+                    <Label Grid.Row="6"
+                                           Grid.Column="1"
+                                           Text="{Binding Concert.spnotes,Converter={StaticResource EmptyTextMessageConverter}}" />
+                </Grid>
+                <Button Grid.Row="2" Text="Add to Calendar"
+                                     Opacity=".75"
+                                     Clicked="AddToCalendarClicked"/>
+
+            </Grid>
+        </Grid>
+    </StackLayout>
+</ContentPage>

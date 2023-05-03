@@ -12,7 +12,7 @@ namespace Toronto.Concerts.Native.ValueConverters
     {
         private string getImageNameForTile(Data.Concert concert)
         {
-            if(string.IsNullOrEmpty(concert.performers))
+            if (string.IsNullOrEmpty(concert.performers))
             {
                 System.Diagnostics.Debug.WriteLine("empty performers");
             }
@@ -31,12 +31,20 @@ namespace Toronto.Concerts.Native.ValueConverters
             if (concert.performers.Contains("chamber", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("chamber", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("quartet", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("quartet", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("ensemble", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("ensemble", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("consort", StringComparison.InvariantCultureIgnoreCase))
                 return "chamber_music.jpg";
 
-            return "Resources/Images/3_fiddlers_in_silhouette.svg";
+            return "fiddlers_in_silhouette.png";
         }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value == null) return null;
-            return getImageNameForTile((Concert)value);
+            if (value == null) return null;
+            try
+            {
+                var concert = (Concert)value;
+                return getImageNameForTile((Concert)value);
+            }   
+            catch
+            {
+                return null;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
