@@ -16,13 +16,16 @@ namespace concerts.functions
 {
     public class ConcertsFunctions
     {
-        [FunctionName("TestFetch")]
+        [FunctionName("FillCacheManually")]
         [StorageAccount("StorageConnection")]
         public async Task TestFetch([HttpTrigger] HttpRequest req, [Blob(blobPath: "concertscache/concerts.json", FileAccess.Write)] Stream fileJson, ILogger log)
         {
             try
             {
-                await GetConcerts();
+                var json = await GetConcerts();
+                byte[] byteArray = Encoding.UTF8.GetBytes(json);
+                fileJson.Write(byteArray, 0, byteArray.Length);
+                System.Diagnostics.Debug.WriteLine(json);
             }
             catch (Exception ex)
             {
