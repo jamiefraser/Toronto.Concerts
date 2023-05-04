@@ -60,6 +60,7 @@ namespace concerts.functions
             }
             return concerts;
         }
+        [StorageAccount("StorageConnection")]
         private async Task<string> GetConcerts()
         {
             var _client = new HttpClient();
