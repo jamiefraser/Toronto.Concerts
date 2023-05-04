@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "concerts.functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7262",
+      "launchBrowser": false
+    }
+  }
+}

@@ -240,38 +240,47 @@ namespace Toronto.Concerts.Services
             //}
 
             //Dev handles checking if cache is expired
+            System.Diagnostics.Debug.WriteLine(Barrel.Current.Get<string>(key: url));
             if (!Barrel.Current.IsExpired(key: url))
             {
                 Concerts = Barrel.Current.Get<IEnumerable<Concert>>(key: url).ToList();
                 GroupedConcerts = Concerts.GroupBy(c => c.DateAndTime.Date.ToString("MMM dd"));
                 return Concerts;
             }
-
-            var location = new Data.Location() { id = "1", name = "City of Toronto" };
-            var today = DateTime.Now.Date.ToUniversalTime();
-            var concertQuery = new ConcertQuery()
+            try
             {
-                startDate = (int)DateTimeOffset.Now.ToUnixTimeSeconds(),
-                endDate = (int)DateTimeOffset.Now.AddDays(30).ToUnixTimeSeconds(),
-                tags = new List<string>().ToArray(),
-                enhancedOnly = false,
-                locations = new Data.Location[] { location, new Data.Location() { id = "2", name = "Halton-Peel Regions" }, new Data.Location() { id = "3", name = "York Region" }, new Data.Location() { id = "4", name = "Durham Region" } }
-            };
-            System.Diagnostics.Debug.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(concertQuery));
-            //{"query":"","listingId":null,"enhancedOnly":false,"startDate":1681358400,"endDate":1683432000,"locations":[{"id":"1","name":"City+of+Toronto"},{"id":"2","name":"Halton-Peel+Regions"},{"id":"3","name":"York+Region"},{"id":"4","name":"Durham+Region"}],"tags":["Chamber","Choral","Early/Baroque","Musical+Theatre","New+Music","Organ","Orchestra","Piano","Solo+Voice","Strings","Religious+Service"]}
-            var formContent = new FormUrlEncodedContent(new[]
-                                                        {
+                var location = new Data.Location() { id = "1", name = "City of Toronto" };
+                var today = DateTime.Now.Date.ToUniversalTime();
+                var concertQuery = new ConcertQuery()
+                {
+                    startDate = (int)DateTimeOffset.Now.ToUnixTimeSeconds(),
+                    endDate = (int)DateTimeOffset.Now.AddDays(30).ToUnixTimeSeconds(),
+                    tags = new List<string>().ToArray(),
+                    enhancedOnly = false,
+                    locations = new Data.Location[] { location, new Data.Location() { id = "2", name = "Halton-Peel Regions" }, new Data.Location() { id = "3", name = "York Region" }, new Data.Location() { id = "4", name = "Durham Region" } }
+                };
+                System.Diagnostics.Debug.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(concertQuery));
+                //{"query":"","listingId":null,"enhancedOnly":false,"startDate":1681358400,"endDate":1683432000,"locations":[{"id":"1","name":"City+of+Toronto"},{"id":"2","name":"Halton-Peel+Regions"},{"id":"3","name":"York+Region"},{"id":"4","name":"Durham+Region"}],"tags":["Chamber","Choral","Early/Baroque","Musical+Theatre","New+Music","Organ","Orchestra","Piano","Solo+Voice","Strings","Religious+Service"]}
+                var formContent = new FormUrlEncodedContent(new[]
+                                                            {
                                                                 new KeyValuePair<string, string>("query", Newtonsoft.Json.JsonConvert.SerializeObject(concertQuery))
                                                             });
 
-            var concertsResponse = await _client.PostAsync("https://www.thewholenote.com/ludwig/listings/search.php", formContent);
-            var json = await concertsResponse.Content.ReadAsStringAsync();
-            System.Diagnostics.Debug.WriteLine(json);
-            Concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(json);
-            GroupedConcerts = Concerts.GroupBy(c => c.DateAndTime.Date.ToString("MMM dd"));
-            //Saves the cache and pass it a timespan for expiration
-            Barrel.Current.Add(key: url, data: concerts, expireIn: TimeSpan.FromDays(1));
-            return concerts;
+                var concertsResponse = await _client.PostAsync("https://www.thewholenote.com/ludwig/listings/search.php", formContent);
+                var json = await concertsResponse.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine(json);
+                Concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(json);
+                GroupedConcerts = Concerts.GroupBy(c => c.DateAndTime.Date.ToString("MMM dd"));
+                //Saves the cache and pass it a timespan for expiration
+                Barrel.Current.Add(key: url, data: concerts, expireIn: TimeSpan.FromDays(1));
+                return concerts;
+            }
+            catch(Exception ex)
+            {
+                Concerts = Barrel.Current.Get<IEnumerable<Concert>>(key: url).ToList();
+                GroupedConcerts = Concerts.GroupBy(c => c.DateAndTime.Date.ToString("MMM dd"));
+                return Concerts;
+            }
         }
         public async Task<bool> GetConcerts()
         {

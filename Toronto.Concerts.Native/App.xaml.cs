@@ -1,5 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+#if iOS
 using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+#endif
 using Toronto.Concerts.Native.Pages;
 using Toronto.Concerts.Services;
 
@@ -13,10 +17,14 @@ namespace Toronto.Concerts.Native
         {
             InitializeComponent();
             _logger = logger;
-#if IOS
+#if iOS
             (Application.Current as IApplicationController)?.SetAppIndexingProvider(new IOSAppIndexingProvider());
+                        this.AppLinks.RegisterLink(new AppLinkEntry() { AppLinkUri = new Uri("concerts://com.relevant.toronto.concerts.native") });
+
 #endif
-            this.AppLinks.RegisterLink(new AppLinkEntry() { AppLinkUri = new Uri("concerts://com.relevant.toronto.concerts.native") });
+#if ANDROID
+            //(Application.Current as IApplicationController)?.SetAppIndexingProvider(new AndroidAppIndexProvider(Microsoft.Maui.ApplicationModel.Platform.CurrentActivity));
+#endif
             MainPage = shell;
 
         }
