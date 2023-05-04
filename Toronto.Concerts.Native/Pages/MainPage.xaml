@@ -56,26 +56,26 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <Label Grid.Row="0"
-                               Text="{Binding title}"
-                               FontAttributes="Bold"
-                               FontSize="Title" 
-                                   HorizontalOptions="Center"/>
+                                           Text="{Binding title}"
+                                           FontAttributes="Bold"
+                                           FontSize="Title" 
+                                           HorizontalOptions="Center"/>
                                     <Grid Grid.Row="1"
-                                  BackgroundColor="Wheat"
-                                  Opacity=".5"
-                                  VerticalOptions="StartAndExpand"
-                                  Margin="10"
-                                  Padding="10"
-                                  RowSpacing="10"
-                                  ColumnSpacing="10">
+                                          BackgroundColor="Wheat"
+                                          Opacity=".5"
+                                          VerticalOptions="StartAndExpand"
+                                          Margin="10"
+                                          Padding="10"
+                                          RowSpacing="10"
+                                          ColumnSpacing="10">
                                         <Grid.Resources>
                                             <Style TargetType="Label">
                                                 <Setter Property="TextColor"
-                                                Value="Black" />
+                                                        Value="Black" />
                                                 <Setter Property="FontAttributes"
-                                                Value="Bold"/>
+                                                        Value="Bold"/>
                                                 <Setter Property="FontSize"
-                                                Value="Header"/>
+                                                        Value="Header"/>
                                             </Style>
                                         </Grid.Resources>
                                         <Grid.ColumnDefinitions>
@@ -92,14 +92,14 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <Label Grid.Row="0"
-                                           Grid.Column="0"
-                                           Text="Time:"/>
+                                               Grid.Column="0"
+                                               Text="Time:"/>
                                         <Label Grid.Row="1"
-                                           Grid.Column="0"
-                                           Text="Price:"/>
+                                               Grid.Column="0"
+                                               Text="Price:"/>
                                         <Label Grid.Row="2"
-                                           Grid.Column="0"
-                                           Text="Performers:"/>
+                                               Grid.Column="0"
+                                               Text="Performers:"/>
                                         <Label Grid.Row="3"
                                            Grid.Column="0"
                                            Text="Repertoire:"/>
@@ -132,20 +132,24 @@
                                            Text="{Binding spnotes,Converter={StaticResource EmptyTextMessageConverter}}" />
                                     </Grid>
                                     <Grid Grid.Row="2"
-                                          VerticalOptions="StartAndExpand"
-                                          HorizontalOptions="StartAndExpand">
+                                          ColumnSpacing="10"
+                                          Opacity=".75">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition />
 
                                         </Grid.ColumnDefinitions>
                                         <Button Grid.Column="0" Text="Add to Calendar"
-                                            Opacity=".75"
-                                            Clicked="AddToCalendar_Clicked"/>
+                                                Opacity=".75"
+                                                Clicked="AddToCalendar_Clicked"
+                                                VerticalOptions="End"
+                                                />
                                         <Button Grid.Column="1"
                                                 Text="Share"
                                                 Opacity=".75"
-                                                Clicked="ShareConcert" />
+                                                Clicked="ShareConcert"
+                                                VerticalOptions="End"
+                                        />
                                     </Grid>
                                     
 

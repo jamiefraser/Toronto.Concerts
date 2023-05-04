@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls;
 #if ANDROID
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using System.Web;
 #elif IOS
     using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 #endif
@@ -24,7 +25,7 @@ namespace Toronto.Concerts.Native
 
 #endif
 #if ANDROID
-            //(Application.Current as IApplicationController)?.SetAppIndexingProvider(new AndroidAppIndexProvider(Microsoft.Maui.ApplicationModel.Platform.CurrentActivity));
+            (Application.Current as IApplicationController)?.SetAppIndexingProvider(new AndroidAppIndexProvider(Microsoft.Maui.ApplicationModel.Platform.CurrentActivity));
 #endif
             MainPage = shell;
 
@@ -38,7 +39,7 @@ namespace Toronto.Concerts.Native
 
                 var segments = uri.Segments.ToList();
                 var segmentCount = segments.Count();
-                _concertDataService.SharedConcertTitle = segments.Last().Replace("%20", " ");
+                _concertDataService.SharedConcertTitle = System.Web.HttpUtility.UrlDecode(segments.Last().Replace("%20", " "));
                 _concertDataService.SharedConcertDate = segments[segments.Count - 2].Substring(0, segments[segments.Count - 2].Length - 1);
                 if (_concertDataService.Concerts == null || _concertDataService.Concerts.Count() == 0) await _concertDataService.GetConcerts();
                 try

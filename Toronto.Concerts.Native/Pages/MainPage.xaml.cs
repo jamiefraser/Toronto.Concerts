@@ -1,4 +1,5 @@
 using Microsoft.Maui.ApplicationModel.DataTransfer;
+using System.Web;
 using Toronto.Concerts.Services;
 
 namespace Toronto.Concerts.Native.Pages;
@@ -7,13 +8,11 @@ public partial class MainPage : ContentPage
 {
 	public IConcertDataService ConcertService { get;private set; }
     private ICalendarService _calendarService;
-    private readonly IShare share;
-	public MainPage(IConcertDataService cs, ICalendarService calendarService, IShare _share)
+	public MainPage(IConcertDataService cs, ICalendarService calendarService)
 	{
 		InitializeComponent();
         _calendarService = calendarService;
 		ConcertService = cs;
-        share = _share;
         this.BindingContext = ConcertService;
         if (DeviceInfo.Current.DeviceType.Equals(DeviceIdiom.Phone))
         {
@@ -41,6 +40,7 @@ public partial class MainPage : ContentPage
     }
     private async Task Share(string uri)
     {
+        var share = Microsoft.Maui.ApplicationModel.DataTransfer.Share.Default;
         await share.RequestAsync(new ShareTextRequest
         {
             Uri = uri,
@@ -49,6 +49,6 @@ public partial class MainPage : ContentPage
     }
     public async void ShareConcert(System.Object sender, System.EventArgs e)
     {
-        await Share($"concerts://com.relevant.toronto.concerts.native/{ConcertService.SelectedConcert.date}/{ConcertService.SelectedConcert.title}"); 
+        await Share($"concerts://com.relevant.toronto.concerts.native/{ConcertService.SelectedConcert.date}/{HttpUtility.UrlEncode(ConcertService.SelectedConcert.title)}"); 
     }
 }
