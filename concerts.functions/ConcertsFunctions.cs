@@ -29,7 +29,7 @@ namespace concerts.functions
             }
             catch (Exception ex)
             {
-                //should log and report here
+                throw;
             }
         }
         [FunctionName("FetchConcerts")]
