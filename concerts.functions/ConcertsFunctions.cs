@@ -22,10 +22,7 @@ namespace concerts.functions
         {
             try
             {
-                var json = "This is a test";
-                byte[] byteArray = Encoding.UTF8.GetBytes(json);
-                fileJson.Write(byteArray, 0, byteArray.Length);
-                System.Diagnostics.Debug.WriteLine(json);
+                await GetConcerts();
             }
             catch (Exception ex)
             {
