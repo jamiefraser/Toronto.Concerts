@@ -1,3 +1,4 @@
+using Microsoft.Maui.ApplicationModel.DataTransfer;
 using Toronto.Concerts.Services;
 
 namespace Toronto.Concerts.Native.Pages;
@@ -6,11 +7,13 @@ public partial class MainPage : ContentPage
 {
 	public IConcertDataService ConcertService { get;private set; }
     private ICalendarService _calendarService;
-	public MainPage(IConcertDataService cs, ICalendarService calendarService)
+    private readonly IShare share;
+	public MainPage(IConcertDataService cs, ICalendarService calendarService, IShare _share)
 	{
 		InitializeComponent();
         _calendarService = calendarService;
 		ConcertService = cs;
+        share = _share;
         this.BindingContext = ConcertService;
         if (DeviceInfo.Current.DeviceType.Equals(DeviceIdiom.Phone))
         {
@@ -35,5 +38,17 @@ public partial class MainPage : ContentPage
         {
             await App.Current.MainPage.DisplayAlert("Failure", $"Couldn't add the event to your calendar.  The error message was: \r\n{result.message}", "OK");
         }
+    }
+    private async Task Share(string uri)
+    {
+        await share.RequestAsync(new ShareTextRequest
+        {
+            Uri = uri,
+            Title = "Share Web Link"
+        });
+    }
+    public async void ShareConcert(System.Object sender, System.EventArgs e)
+    {
+        await Share($"concerts://com.relevant.toronto.concerts.native/{ConcertService.SelectedConcert.date}/{ConcertService.SelectedConcert.title}"); 
     }
 }
