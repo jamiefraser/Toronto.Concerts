@@ -1,5 +1,4 @@
 ﻿using MonkeyCache.FileStore;
-using PanCardView.Extensions;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http.Json;
@@ -266,7 +265,7 @@ namespace Toronto.Concerts.Services
                                                                 new KeyValuePair<string, string>("query", Newtonsoft.Json.JsonConvert.SerializeObject(concertQuery))
                                                             });
 
-                var concertsResponse = await _client.PostAsync("https://www.thewholenote.com/ludwig/listings/search.php", formContent);
+                var concertsResponse = await _client.GetAsync("https://concertsfunctions.azurewebsites.net/api/RetrieveConcerts?code=ZrCRZVpk1MKhcSEBRTDe86NAXl9X7HivlLVZDUxSqCOOAzFuS2TNZw==");
                 var json = await concertsResponse.Content.ReadAsStringAsync();
                 System.Diagnostics.Debug.WriteLine(json);
                 Concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(json);
