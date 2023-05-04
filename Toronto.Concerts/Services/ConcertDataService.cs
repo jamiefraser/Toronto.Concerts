@@ -1,5 +1,4 @@
 ﻿using MonkeyCache.FileStore;
-using PanCardView.Extensions;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http.Json;
