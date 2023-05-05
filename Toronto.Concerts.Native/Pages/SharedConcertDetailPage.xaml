@@ -1,12 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Toronto.Concerts.Native.Pages.SharedConcertDetailPage"
-             xmlns:sfData="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
-             xmlns:sfCore="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
-             xmlns:sfList="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
              xmlns:controls="clr-namespace:Toronto.Concerts.Native.Controls"
-             xmlns:data="clr-namespace:Syncfusion.Maui.DataSource;assembly=Syncfusion.Maui.DataSource"
              xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
              xmlns:converters="clr-namespace:Toronto.Concerts.Native.ValueConverters"
              Title="SharedConcertDetailPage">

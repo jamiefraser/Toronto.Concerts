@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.AppCenter;
 using Microsoft.Maui.Controls;
 #if ANDROID
     using Microsoft.Maui.Controls.Compatibility.Platform.Android;
@@ -60,5 +61,7 @@ namespace Toronto.Concerts.Native
                 _logger.LogError(higherEx,higherEx.Message);
             }
         }
+        
+
     }
 }
