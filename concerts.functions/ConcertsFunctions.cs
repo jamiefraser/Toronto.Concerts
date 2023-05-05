@@ -6,10 +6,14 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs.Specialized;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Toronto.Concerts.Data;
 
 namespace concerts.functions
@@ -18,13 +22,30 @@ namespace concerts.functions
     {
         [FunctionName("FillCacheManually")]
         [StorageAccount("StorageConnection")]
-        public async Task TestFetch([HttpTrigger] HttpRequest req, [Blob(blobPath: "concertscache/concerts.json", FileAccess.Write)] Stream fileJson, ILogger log)
+        public async Task TestFetch([HttpTrigger] HttpRequest req, [Blob(blobPath: "concertscache/concerts.json", FileAccess.Write)] BlockBlobClient fileJson, ILogger log)
         {
             try
             {
                 var json = await GetConcerts();
                 byte[] byteArray = Encoding.UTF8.GetBytes(json);
-                fileJson.Write(byteArray, 0, byteArray.Length);
+                {
+                    var accessCondition = new AccessCondition();
+                    var blobRequestOptions = new BlockBlobOpenWriteOptions();
+
+                    var operationContext = new OperationContext();
+
+                    // ETag access condition is used so that it will not cause any issue due to ongoing concurrent modification on the same blob
+
+                    accessCondition.IfMatchETag = "*";
+                    MemoryStream ms = new MemoryStream(byteArray);
+                    var result = await fileJson.UploadAsync(ms);
+                    System.Diagnostics.Debug.WriteLine(result.GetRawResponse().Status);
+                    //var s = await fileJson.OpenWriteAsync(true,blobRequestOptions);
+                    //await s.WriteAsync(byteArray, 0, byteArray.Length);
+                    //await s.FlushAsync();
+                    ////await fileJson.FlushAsync();
+                    //s.Close();
+                }
                 System.Diagnostics.Debug.WriteLine(json);
             }
             catch (Exception ex)
@@ -60,7 +81,6 @@ namespace concerts.functions
             }
             return concerts;
         }
-        [StorageAccount("StorageConnection")]
         private async Task<string> GetConcerts()
         {
             var _client = new HttpClient();

@@ -23,7 +23,17 @@ public partial class MainPage : ContentPage
             //gridLayout.SpanCount = 2;
         }
         ConcertService.SelectedDate = null;
-        if(ConcertService.Concerts==null || ConcertService.Concerts.Count()==0)ConcertService.GetConcerts();
+        if (ConcertService.Concerts == null || ConcertService.Concerts.Count() == 0)
+        {
+            try
+            {
+                ConcertService.GetConcerts();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("error!", $"{ex.Message}\r\n{ex.StackTrace}", "OK");
+            }
+        }
 	}
 
     private async void AddToCalendar_Clicked(object sender, EventArgs e)
