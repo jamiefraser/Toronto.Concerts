@@ -138,8 +138,8 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
       <IntermediateOutputPath></IntermediateOutputPath>
-      <DebugSymbols></DebugSymbols>
-      <DebugType></DebugType>
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>pdbonly</DebugType>
       <Optimize></Optimize>
       <OutputPath></OutputPath>
       <DefineConstants></DefineConstants>
