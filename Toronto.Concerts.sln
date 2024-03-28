@@ -4,9 +4,7 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toronto.Concerts", "Toronto.Concerts\Toronto.Concerts.csproj", "{B56130F5-681A-4191-8463-100E6A93DFF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toronto.Concerts.Native", "Toronto.Concerts.Native\Toronto.Concerts.Native.csproj", "{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "concerts.functions", "concerts.functions\concerts.functions.csproj", "{BC566916-9F3F-4756-8874-6B8CE228017C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "concerts.functions", "concerts.functions\concerts.functions.csproj", "{BC566916-9F3F-4756-8874-6B8CE228017C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,18 +26,6 @@ Global
 		{B56130F5-681A-4191-8463-100E6A93DFF9}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{B56130F5-681A-4191-8463-100E6A93DFF9}.Release|ARM64.Build.0 = Release|Any CPU
 		{B56130F5-681A-4191-8463-100E6A93DFF9}.Release|ARM64.Deploy.0 = Release|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Debug|ARM64.Deploy.0 = Debug|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Release|ARM64.Build.0 = Release|Any CPU
-		{BBBDC9C2-210B-4258-8938-0A3BA5F5CB8A}.Release|ARM64.Deploy.0 = Release|Any CPU
 		{BC566916-9F3F-4756-8874-6B8CE228017C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC566916-9F3F-4756-8874-6B8CE228017C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC566916-9F3F-4756-8874-6B8CE228017C}.Debug|ARM64.ActiveCfg = Debug|Any CPU

@@ -164,17 +164,6 @@
       <CodesignKey>iPhone Developer</CodesignKey>
       <BuildIpa>true</BuildIpa>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-      <ProvisioningType>automatic</ProvisioningType>
-      <CodesignProvision>VS: WildCard Development</CodesignProvision>
-      <CodesignKey>Apple Development: Created via API (97NPDV4RU8)</CodesignKey>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
-      <BuildIpa>True</BuildIpa>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
-      <BuildIpa>True</BuildIpa>
-    </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
 
@@ -183,7 +172,7 @@
 
 		<!-- Images -->
         <MauiImage Include="Resources\Images\*" />
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" TintColor="Yellow" />
 
 		<!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
@@ -192,7 +181,10 @@
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
     <ItemGroup>
-      <None Remove="Resources\AppIcon\appicon.svg" />
+      <None Remove="Platforms\Android\Resources\%40mipmap\appicon.svg" />
+    </ItemGroup>
+    <ItemGroup>
+      <AndroidResource Include="Platforms\Android\Resources\@mipmap\appicon.svg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -202,19 +194,15 @@
         <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.6.0" />
         <PackageReference Include="MonkeyCache.FileStore" Version="2.1.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="Radzen.Blazor" Version="4.28.9" />
+        <PackageReference Include="Radzen.Blazor" Version="4.28.4" />
         <PackageReference Include="Swart.ApplicationInsights.MAUI" Version="1.0.1" />
-        <PackageReference Include="Syncfusion.Blazor.Maps" Version="25.1.37" />
+        <PackageReference Include="Syncfusion.Blazor.Maps" Version="25.1.35" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Update="wwwroot\favicon.ico">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="Resources\AppIcon\appicon_old.svg" TintColor="Yellow" />
     </ItemGroup>
 
     <ItemGroup>

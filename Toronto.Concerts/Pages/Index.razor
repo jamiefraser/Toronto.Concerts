@@ -12,7 +12,9 @@ else
 {
     <ErrorRenderer @ref="errorRenderer">
 
-        <FluentAccordion ExpandMode="AccordionExpandMode.Single">
+        <FluentAccordion ExpandMode="AccordionExpandMode.Multi"
+                         @ref="accordion"
+                         >
             @{
                 var grouped = concertService.Concerts.GroupBy(c => c.DateAndTime.Date);
             }
@@ -84,6 +86,7 @@ else
 @code
 {
     protected ErrorRenderer errorRenderer = default!;
+    protected FluentAccordion accordion;
     void ExpandedChanged(TreeChangeEventArgs args)
     {
         System.Diagnostics.Debug.WriteLine($"TreeChanged - {args.AffectedId}");

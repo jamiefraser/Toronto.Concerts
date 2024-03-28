@@ -20,7 +20,8 @@
                 </div>
                 <FluentButton @onclick="@(async (args) =>
                                       {
-                                          navManager.NavigateTo("/");
+                                          //Shell.Current.GoToAsync("..");
+                                          navManager.NavigateTo("..");
                                       })"
                               Appearance="Appearance.Hypertext"
                               Value="Done">

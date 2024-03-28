@@ -2,53 +2,113 @@
 @inject Toronto.Concerts.Services.IConcertDataService concertService;
 @inject Toronto.Concerts.Services.ICalendarService calendarService;
 @inject NavigationManager navMan;
+@using System.Text.RegularExpressions;
+@using System.Collections.Generic;
+@using System;
 <h3>@concertService.SelectedConcert.title</h3>
-        <div style="height:88vh;width:90vw;position:absolute;margin:0px 0px 2px 4px">
-            <h4>@concertService.SelectedConcert.DateAndTime.DayOfWeek @concertService.SelectedConcert.DateAndTime.ToString("MMMM dd hh:mm tt")</h4>
+<div style="height:88vh;width:90vw;position:absolute;margin:0px 0px 2px 4px">
+    <h4>@concertService.SelectedConcert.DateAndTime.DayOfWeek @concertService.SelectedConcert.DateAndTime.ToString("MMMM dd hh:mm tt")</h4>
 
-            @concertService.SelectedConcert.description
+    @concertService.SelectedConcert.description
 
-            <h3>Repertoire</h3>
-            <h4>
-                @concertService.SelectedConcert.repertoire
-            </h4>
+    <h3>Repertoire</h3>
+    <h4>
+        @concertService.SelectedConcert.repertoire
+    </h4>
 
-            <h3>Performers</h3>
-            <h5>
-                @if (!string.IsNullOrEmpty(concertService.SelectedConcert.performers))
-                {
-                    @concertService.SelectedConcert.performers
-                }
-                else
-                {
-                    <p>Not Available</p>
-                }
-            </h5>
+    <h3>Performers</h3>
+    <h5>
+        @if (!string.IsNullOrEmpty(concertService.SelectedConcert.performers))
+        {
+            @concertService.SelectedConcert.performers
+        }
+        else
+        {
+            <p>Not Available</p>
+        }
+    </h5>
 
-            <h3>Presented By</h3>
-            <h5>
-                @concertService.SelectedConcert.presenter
-            </h5>
+    <h3>Presented By</h3>
+    <h5>
+        @concertService.SelectedConcert.presenter
+    </h5>
 
-            <h3>Location</h3>
-            <FluentButton @onclick="@(async(args) => 
+    <h3>Location</h3>
+    <FluentButton @onclick="@(async(args) =>
                           {
                             navMan.NavigateTo("/map-page");
                           })">
-                <h5>
-                    @concertService.SelectedConcert.venue
-                </h5>
-                <h5>
-                    @concertService.SelectedConcert.address
-                </h5>
-            </FluentButton>
-            @*Let's add a map here some time*@
-            <div style="position:absolute;bottom:0;right:0" class="h3">
-                @concertService.SelectedConcert.prices
-            </div>
+        <h5>
+            @concertService.SelectedConcert.venue
+        </h5>
+        <h5>
+            @concertService.SelectedConcert.address
+        </h5>
+    </FluentButton>
+    @{ 
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(concertService.SelectedConcert);
+        var links =  ExtractLinks(json).Result;
+    }
+    @if (links.Count() > 0)
+    {
 
-        </div>
+            <a href=@links?.FirstOrDefault()>
+                <h5>More Information</h5>
+            </a>
+    }
+    @*Let's add a map here some time*@
+    <div style="position:absolute;bottom:0;right:0" class="h3">
+        @concertService.SelectedConcert.prices
+    </div>
+
+</div>
 @code {
     public ErrorRenderer errorRenderer { get; set; }
+    public async Task<List<string>> ExtractLinks(string text)
+    {
+        List<string> links = new List<string>();
+        // Regex pattern to match URLs (starting with or without "www" and followed by a domain name and possibly a path)
+        string pattern = @"\b(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/\S*)?\b";
 
+        // Find matches in the provided text
+        MatchCollection matches = Regex.Matches(text, pattern);
+
+        // Loop over matches and add them to the list
+        foreach (Match match in matches)
+        {
+            string url = "";
+            if (match.Value.Split(',').Length > 1)
+            {
+                string[] split = match.Value.Split(',');
+                url = split[0].Replace("\"","");
+                if(!url.StartsWith("http://") && !url.StartsWith("https://"))
+                {
+                    url = "https://" + url.Replace("www.","");
+                }
+                //url = url.StartsWith("www.") ? $"https://{url}" : "https://" + match.Value;
+
+                links.Add(url);
+            }
+            else
+            {
+                // Prepend "http://" if "www" is not part of the matched URL
+                if (!match.Value.StartsWith("http://") && !match.Value.StartsWith("https://"))
+                {
+                    url = "https://" + match.Value.Replace("www.","");
+                }
+                //url = match.Value.StartsWith("www.") ? match.Value : "https://" + match.Value;
+                links.Add(url);
+            }
+        }
+        System.Diagnostics.Debug.WriteLine("Incoming text: " + text);
+        System.Diagnostics.Debug.WriteLine("There are " + links.Count + " links in the text");
+        System.Diagnostics.Debug.WriteLine("There are " + matches.Count + " matches in the text");
+        foreach (string link in links)
+        {
+            System.Diagnostics.Debug.WriteLine("Link: " + link);
+        }
+
+        return links;
+    }
+}
 }

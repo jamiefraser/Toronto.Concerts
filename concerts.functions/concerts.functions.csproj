@@ -8,8 +8,8 @@
     <Compile Include="..\Toronto.Concerts\Data\ConcertQuery.cs" Link="Data\ConcertQuery.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="5.1.2" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="5.2.2" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
