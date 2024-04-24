@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+        <TargetFrameworks>net8.0-ios;net8.0-maccatalyst;net8.0-android34.0</TargetFrameworks>
               <EmbedAllSources>false</EmbedAllSources>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
@@ -166,17 +166,17 @@
       <BuildIpa>true</BuildIpa>
     </PropertyGroup>
     <PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-      <ProvisioningType>automatic</ProvisioningType>
-      <CodesignProvision>VS: WildCard Development</CodesignProvision>
-      <CodesignKey>Apple Development: Created via API (97NPDV4RU8)</CodesignKey>
+      <ProvisioningType>manual</ProvisioningType>
+      <CodesignProvision>Concerts - Ad-hoc</CodesignProvision>
+      <CodesignKey>iPhone Distribution: Peter Fraser (V4NK73GGWK)</CodesignKey>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
-      <BuildIpa>True</BuildIpa>
+      <BuildIpa>False</BuildIpa>
       <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
       <DebugType>portable</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
-      <BuildIpa>True</BuildIpa>
+      <BuildIpa>False</BuildIpa>
       <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
       <DebugType>portable</DebugType>
     </PropertyGroup>
@@ -198,6 +198,10 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
       <DebugType>portable</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
+      <RunAOTCompilation>False</RunAOTCompilation>
+      <PublishTrimmed>False</PublishTrimmed>
     </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
