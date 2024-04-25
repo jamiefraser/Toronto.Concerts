@@ -21,8 +21,8 @@
         <ApplicationIdGuid>62AD4D8A-3EBE-492D-84E4-9888CA04A4B1</ApplicationIdGuid>
 
         <!-- Versions -->
-        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-        <ApplicationVersion>1</ApplicationVersion>
+        <ApplicationDisplayVersion>3.0</ApplicationDisplayVersion>
+        <ApplicationVersion>3</ApplicationVersion>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
@@ -174,20 +174,29 @@
       <BuildIpa>False</BuildIpa>
       <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
       <DebugType>portable</DebugType>
+      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
+      <ApplicationVersion>2</ApplicationVersion>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
       <BuildIpa>False</BuildIpa>
       <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
       <DebugType>portable</DebugType>
+      <MtouchLink>SdkOnly</MtouchLink>
+      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
+      <ApplicationVersion>2</ApplicationVersion>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
       <DebugType>portable</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
       <DebugType>portable</DebugType>
+      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
+      <ApplicationVersion>2</ApplicationVersion>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
       <DebugType>portable</DebugType>
+      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
+      <ApplicationVersion>2</ApplicationVersion>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
       <DebugType>portable</DebugType>
@@ -195,13 +204,23 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
       <DebugType>portable</DebugType>
+      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
+      <ApplicationVersion>2</ApplicationVersion>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
       <DebugType>portable</DebugType>
+      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
+      <ApplicationVersion>2</ApplicationVersion>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
       <RunAOTCompilation>False</RunAOTCompilation>
       <PublishTrimmed>False</PublishTrimmed>
+      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
+      <ApplicationVersion>2</ApplicationVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android34.0|AnyCPU'">
+      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
+      <ApplicationVersion>2</ApplicationVersion>
     </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
