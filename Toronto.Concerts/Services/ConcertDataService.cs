@@ -142,7 +142,6 @@ namespace Toronto.Concerts.Services
                 try
 
                 {
-                    throw new Exception("Testing application insights");
                 }
                 catch (Exception ex)
                 {

@@ -1,28 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0-ios;net8.0-maccatalyst;net8.0-android34.0</TargetFrameworks>
-              <EmbedAllSources>false</EmbedAllSources>
+        <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-        <!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+        <!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+
+        <!-- Note for MacCatalyst:
+            The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+            When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+            The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+            either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+        <!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+
         <OutputType>Exe</OutputType>
         <RootNamespace>Toronto.Concerts</RootNamespace>
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
+        <Nullable>enable</Nullable>
 
         <!-- Display name -->
-        <ApplicationTitle>Concerts</ApplicationTitle>
+        <ApplicationTitle>Toronto.Concerts</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-        <ApplicationIdGuid>62AD4D8A-3EBE-492D-84E4-9888CA04A4B1</ApplicationIdGuid>
+        <ApplicationId>com.companyname.toronto.concerts</ApplicationId>
 
         <!-- Versions -->
-        <ApplicationDisplayVersion>3.0</ApplicationDisplayVersion>
-        <ApplicationVersion>3</ApplicationVersion>
+        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+        <ApplicationVersion>1</ApplicationVersion>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
@@ -30,250 +37,36 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
-        <ApplicationInsightsResourceId>/subscriptions/1c0a0679-436b-4942-95fd-a5542e0d13a1/resourceGroups/jf-Concerts-rg/providers/microsoft.insights/components/concerts-ai</ApplicationInsightsResourceId>
-        <UserSecretsId>d0d95b29-3ce9-4a0b-ad04-9c3ea851ea05</UserSecretsId>
-        <Platforms>AnyCPU</Platforms>
-    </PropertyGroup>
-    <PropertyGroup>
-        <UseInterpreter>true</UseInterpreter>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(TargetFramework)'=='net6.0-ios'">
-      <CodesignKey>Apple Development: Created via API (UC7YYWCBU3)</CodesignKey>
-      <CodesignProvision>VS: WildCard Development</CodesignProvision>
-      <ProvisioningType>automatic</ProvisioningType>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|ARM64'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|ARM64'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-      <BuildIpa>False</BuildIpa>
-      <CreatePackage>false</CreatePackage>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|ARM64'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-      <BuildIpa>False</BuildIpa>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-      <BuildIpa>true</BuildIpa>
-      <CreatePackage>false</CreatePackage>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|ARM64'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-      <BuildIpa>False</BuildIpa>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-maccatalyst|AnyCPU'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-maccatalyst|ARM64'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-maccatalyst|AnyCPU'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-maccatalyst|ARM64'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows10.0.19041.0|ARM64'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows10.0.19041.0|ARM64'">
-      <ApplicationId>com.relevant.toronto.concerts</ApplicationId>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-      <IntermediateOutputPath></IntermediateOutputPath>
-      <DebugSymbols></DebugSymbols>
-      <DebugType></DebugType>
-      <Optimize></Optimize>
-      <OutputPath></OutputPath>
-      <DefineConstants></DefineConstants>
-      <WarningLevel></WarningLevel>
-      <TreatWarningsAsErrors></TreatWarningsAsErrors>
-      <DocumentationFile></DocumentationFile>
-      <ConsolePause>true</ConsolePause>
-      <ExternalConsole>false</ExternalConsole>
-      <Commandlineparameters></Commandlineparameters>
-      <RunWithWarnings>true</RunWithWarnings>
-      <NoWarn></NoWarn>
-      <AllowUnsafeBlocks></AllowUnsafeBlocks>
-      <CheckForOverflowUnderflow></CheckForOverflowUnderflow>
-      <LangVersion>Default</LangVersion>
-      <NoStdLib></NoStdLib>
-      <PlatformTarget>anycpu</PlatformTarget>
-      <WarningsNotAsErrors></WarningsNotAsErrors>
-      <Nullable></Nullable>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-      <IntermediateOutputPath></IntermediateOutputPath>
-      <DebugSymbols>true</DebugSymbols>
-      <DebugType>pdbonly</DebugType>
-      <Optimize></Optimize>
-      <OutputPath></OutputPath>
-      <DefineConstants></DefineConstants>
-      <WarningLevel>4</WarningLevel>
-      <TreatWarningsAsErrors></TreatWarningsAsErrors>
-      <DocumentationFile></DocumentationFile>
-      <ConsolePause>true</ConsolePause>
-      <ExternalConsole>false</ExternalConsole>
-      <Commandlineparameters></Commandlineparameters>
-      <RunWithWarnings>true</RunWithWarnings>
-      <NoWarn></NoWarn>
-      <AllowUnsafeBlocks></AllowUnsafeBlocks>
-      <CheckForOverflowUnderflow></CheckForOverflowUnderflow>
-      <LangVersion>Default</LangVersion>
-      <NoStdLib></NoStdLib>
-      <PlatformTarget>anycpu</PlatformTarget>
-      <WarningsNotAsErrors></WarningsNotAsErrors>
-      <Nullable></Nullable>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
-      <CreatePackage>false</CreatePackage>
-      <CodesignProvision>Automatic</CodesignProvision>
-      <CodesignKey>iPhone Developer</CodesignKey>
-      <BuildIpa>true</BuildIpa>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-      <ProvisioningType>manual</ProvisioningType>
-      <CodesignProvision>Concerts - Ad-hoc</CodesignProvision>
-      <CodesignKey>iPhone Distribution: Peter Fraser (V4NK73GGWK)</CodesignKey>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
-      <BuildIpa>False</BuildIpa>
-      <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
-      <DebugType>portable</DebugType>
-      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
-      <ApplicationVersion>2</ApplicationVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
-      <BuildIpa>False</BuildIpa>
-      <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
-      <DebugType>portable</DebugType>
-      <MtouchLink>SdkOnly</MtouchLink>
-      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
-      <ApplicationVersion>2</ApplicationVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-      <DebugType>portable</DebugType>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
-      <DebugType>portable</DebugType>
-      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
-      <ApplicationVersion>2</ApplicationVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
-      <DebugType>portable</DebugType>
-      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
-      <ApplicationVersion>2</ApplicationVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-      <DebugType>portable</DebugType>
-      <DebugSymbols>True</DebugSymbols>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
-      <DebugType>portable</DebugType>
-      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
-      <ApplicationVersion>2</ApplicationVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
-      <DebugType>portable</DebugType>
-      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
-      <ApplicationVersion>2</ApplicationVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
-      <RunAOTCompilation>False</RunAOTCompilation>
-      <PublishTrimmed>False</PublishTrimmed>
-      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
-      <ApplicationVersion>2</ApplicationVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android34.0|AnyCPU'">
-      <ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
-      <ApplicationVersion>2</ApplicationVersion>
-    </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
         <!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" />
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
-		<!-- Images -->
+        <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" />
+        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
-		<!-- Custom Fonts -->
+        <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
-    <ItemGroup>
-      <None Remove="Resources\AppIcon\appicon.svg" />
-    </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.22.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.6.0" />
-        <PackageReference Include="MonkeyCache.FileStore" Version="2.1.1" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="Radzen.Blazor" Version="4.28.9" />
-        <PackageReference Include="Swart.ApplicationInsights.MAUI" Version="1.0.1" />
-        <PackageReference Include="Syncfusion.Blazor.Maps" Version="25.1.37" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Update="wwwroot\favicon.ico">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="Resources\AppIcon\appicon_old.svg" TintColor="Yellow" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Update="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.14" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.14" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.22.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.6.0" />
+    <PackageReference Include="MonkeyCache.FileStore" Version="2.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Radzen.Blazor" Version="4.28.9" />
+    <PackageReference Include="Swart.ApplicationInsights.MAUI" Version="1.0.1" />
+    <PackageReference Include="Syncfusion.Blazor.Maps" Version="25.1.37" />
+  </ItemGroup>
 
 </Project>
