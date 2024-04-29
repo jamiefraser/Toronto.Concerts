@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Toronto.Concerts.MAUI.MainPage"
+             >
+
+    <ScrollView x:Name="svParent">
+        <VerticalStackLayout Padding="5,5">
+            <CollectionView ItemsSource="{Binding GroupedConcerts}"
+                            IsGrouped="True"
+                            MinimumWidthRequest="{Binding RenderedWidth, Source={RelativeSource AncestorType={x:Type ContentPage},AncestorLevel=1}}"
+                            x:Name="cvConcerts">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Key}" 
+                                   FontSize="Large" 
+                                   FontAttributes="Bold" 
+                                   Grid.Column="0"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" 
+                                       ItemSpacing="10"
+                                       SnapPointsAlignment="Start"
+                                       SnapPointsType="MandatorySingle"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout BackgroundColor="{AppThemeBinding Light=Bisque, Dark=DarkGray}"
+                                     WidthRequest="{Binding Source={x:Reference Name=svParent}, Path=Width}"
+                                     HeightRequest="{Binding Source={x:Reference Name=svParent},Path=Height}">
+                            <Label Text="{Binding title}" Style="{StaticResource ConcertTitle}"/>
+                            <Label Text="{Binding DateAndTime, StringFormat='{0:t}'}" Style="{StaticResource ConcertDetail}"/>
+                            <Label Text="Presenter" Style="{StaticResource ConcertDetailHeader}" />
+                            <Label Text="{Binding presenter}" Style="{StaticResource ConcertPresenter}"/>
+                            <Label Text="Performers" Style="{StaticResource ConcertDetailHeader}" />
+                            <Label Text="{Binding performers}" Style="{StaticResource ConcertDetail}" />
+                            <Label Text="Venue" Style="{StaticResource ConcertDetailHeader}" />
+                            <Label Text="{Binding venue}" Style="{StaticResource ConcertDetail}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

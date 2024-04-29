@@ -1,12 +1,13 @@
-﻿using Android.Content;
-using Android.Provider;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toronto.Concerts.Services;
-
+using Android.App;
+using Android.Content;
+using Android.Content.PM;
+using Android.Provider;
 namespace Toronto.Concerts.Platforms.Android
 {
     public class CalendarService : ICalendarService

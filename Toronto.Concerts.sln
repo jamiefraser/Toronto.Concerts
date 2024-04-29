@@ -6,6 +6,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toronto.Concerts", "Toronto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "concerts.functions", "concerts.functions\concerts.functions.csproj", "{BC566916-9F3F-4756-8874-6B8CE228017C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toronto.Concerts.MAUI", "Toronto.Concerts.MAUI\Toronto.Concerts.MAUI.csproj", "{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,18 @@ Global
 		{BC566916-9F3F-4756-8874-6B8CE228017C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC566916-9F3F-4756-8874-6B8CE228017C}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{BC566916-9F3F-4756-8874-6B8CE228017C}.Release|ARM64.Build.0 = Release|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Debug|ARM64.Deploy.0 = Debug|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Release|ARM64.Build.0 = Release|Any CPU
+		{9C687D84-2E9F-4273-865B-6C8BEA0AE8D7}.Release|ARM64.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
