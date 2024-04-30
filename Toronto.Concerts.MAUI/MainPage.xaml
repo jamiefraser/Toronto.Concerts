@@ -1,15 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Toronto.Concerts.MAUI.ValueConverters"
              x:Class="Toronto.Concerts.MAUI.MainPage"
              >
-
+    <ContentPage.Resources>
+        <converters:FriendlyDateConverter x:Key="FriendlyDateConverter" x:Name="FriendlyDateConverter"/>
+    </ContentPage.Resources>
     <ScrollView x:Name="svParent">
         <VerticalStackLayout Padding="5,5">
+            <Picker IsEnabled="True"
+                    ItemsSource="{Binding Dates}"
+                    SelectedItem="{Binding SelectedDate}"
+                    ItemDisplayBinding="{Binding Date,Converter={StaticResource FriendlyDateConverter}}"/>
             <CollectionView ItemsSource="{Binding GroupedConcerts}"
                             IsGrouped="True"
                             MinimumWidthRequest="{Binding RenderedWidth, Source={RelativeSource AncestorType={x:Type ContentPage},AncestorLevel=1}}"
-                            x:Name="cvConcerts">
+                            SelectedItem="{Binding SelectedConcert, Mode=TwoWay}"
+                            SelectionMode="Single"
+                            x:Name="cvConcerts"
+                            >
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <Grid>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,6 +20,43 @@ namespace Toronto.Concerts.MAUI.ViewModels
             _concertDataService.GetConcerts();
             //_concertDataService.GetConcerts();
         }
+        private Concert selectedconcert;
+        public Concert SelectedConcert
+        {
+            get
+
+            {
+                return selectedconcert;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    selectedconcert = value;
+                    OnPropertyChanged(nameof(SelectedConcert));
+                    SelectedDate = selectedconcert.DateAndTime.Date;
+                }
+            }
+        }
+        public List<DateTime> Dates => concerts.Select(c => c.DateAndTime.Date).Distinct().ToList<DateTime>();// _concertDataService.Dates;
+        
+        private DateTime selecteddate;
+        public DateTime SelectedDate
+        {
+            get
+            {
+                return selecteddate.Date;
+            }
+            set
+            {
+                if (selecteddate != value)
+                {
+                    selecteddate = value;
+                    OnPropertyChanged(nameof(SelectedDate));
+                    SelectedConcert = concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date));
+                }
+            }
+        }
         public string Message => "Hello from ViewModel";
         private List<Concert> concerts = new List<Concert>();
 
@@ -36,13 +74,15 @@ namespace Toronto.Concerts.MAUI.ViewModels
         
         private async void _concertDataService_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_concertDataService.Concerts))
+            if (e.PropertyName == "GroupedConcerts" || e.PropertyName=="Concerts")
             {
                 Concerts = _concertDataService.Concerts;
                 OnPropertyChanged(nameof(GroupedConcerts));
+                SelectedConcert = concerts.FirstOrDefault();
                 OnPropertyChanged(nameof(Count));
+                OnPropertyChanged(nameof(Dates));
+                OnPropertyChanged(nameof(SelectedDate));
             }
         }
-
     }
 }

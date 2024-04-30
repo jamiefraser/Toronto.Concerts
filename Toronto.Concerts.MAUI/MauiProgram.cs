@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Toronto.Concerts.MAUI.ViewModels;
 using Toronto.Concerts.Services;
 namespace Toronto.Concerts.MAUI
@@ -15,7 +16,8 @@ namespace Toronto.Concerts.MAUI
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                .UseMauiCompatibility();
             
 #if DEBUG
             builder.Logging.AddDebug();
