@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Syncfusion.Maui.DataSource.Extensions;
+using System.ComponentModel;
+using Toronto.Concerts.Data;
 using Toronto.Concerts.MAUI.ViewModels;
 
 namespace Toronto.Concerts.MAUI
@@ -23,7 +25,8 @@ namespace Toronto.Concerts.MAUI
             if (e.PropertyName == "SelectedConcert")
                 try
                 {
-                    cvConcerts.ScrollTo(vm.SelectedConcert, position: ScrollToPosition.Start, animate: true);
+                    var index = vm.Concerts.IndexOf(vm.SelectedConcert);
+                    cvConcerts.ScrollTo(position: index);
                 }
                 catch { }
         }
@@ -35,6 +38,11 @@ namespace Toronto.Concerts.MAUI
         private void cvConcerts_Scrolled(object sender, ItemsViewScrolledEventArgs e)
         {
             
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("sos",true);
         }
     }
 

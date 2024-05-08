@@ -4,6 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+
+    <!-- Sizes -->
+    <x:Double x:Key="SizeTabIcon">24</x:Double>
+    <Thickness x:Key="PageMargin">20, 20, 20, 20</Thickness>
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
@@ -138,6 +143,12 @@
         <Setter Property="CornerRadius" Value="8" />
     </Style>
 
+    <Style TargetType="Frame" x:Key="DataFrame">
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="HasShadow" Value="False"/>
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+
     <Style TargetType="ImageButton">
         <Setter Property="Opacity" Value="1" />
         <Setter Property="BorderColor" Value="Transparent"/>
@@ -160,6 +171,15 @@
         </Setter>
     </Style>
 
+    <Style TargetType="ImageButton" x:Key="ActionButton">
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="Start"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="HeightRequest" Value="30" />
+        <Setter Property="WidthRequest" Value="30" />
+    </Style>
+
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -179,10 +199,18 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type Label}" x:Key="Header">
+        <Setter Property="TextTransform" Value="Uppercase"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="Padding" Value="0, 10, 0, 5"/>
+    </Style>
+
     <Style TargetType="Span">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
     </Style>
-
+    <Style x:Key="ConcertItem" TargetType="StackLayout">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray200}}"></Setter>
+    </Style>
     <Style TargetType="Label" x:Key="Headline">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
         <Setter Property="FontSize" Value="32" />
@@ -195,32 +223,6 @@
         <Setter Property="FontSize" Value="24" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
-    </Style>
-    <Style TargetType="Label" x:Key="ConcertTitle">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
-        <Setter Property="FontSize" Value="20" />
-        <Setter Property="HorizontalOptions" Value="Start" />
-        <Setter Property="HorizontalTextAlignment" Value="Start" />
-    </Style>
-    <Style TargetType="Label" x:Key="ConcertDetail">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="HorizontalOptions" Value="Start" />
-        <Setter Property="HorizontalTextAlignment" Value="Start" />
-    </Style>
-    <Style TargetType="Label" x:Key="ConcertDetailHeader">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
-        <Setter Property="FontSize" Value="16" />
-        <Setter Property="HorizontalOptions" Value="Start" />
-        <Setter Property="HorizontalTextAlignment" Value="Start" />
-        <Setter Property="FontAttributes" Value="Bold" />
-    </Style>
-    <Style TargetType="Label" x:Key="ConcertPresenter">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource SecondaryDarkText}, Dark={StaticResource Secondary}}" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="HorizontalOptions" Value="Start" />
-        <Setter Property="HorizontalTextAlignment" Value="Start" />
     </Style>
 
     <Style TargetType="ListView">
@@ -448,5 +450,35 @@
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
-
+    <Style TargetType="Label" x:Key="ConcertTitle">
+        <Setter Property="TextColor" Value="ForestGreen" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+    
+    <Style TargetType="Label" x:Key="ConcertDetail">
+        <Setter Property="TextColor" Value="ForestGreen" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+    </Style>
+    <Style TargetType="Label" x:Key="ConcertDetailHeader">
+        <Setter Property="TextColor"  Value="ForestGreen" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+    </Style>
+    <Style TargetType="Label" x:Key="ConcertPresenter">
+        <Setter Property="TextColor"  Value="ForestGreen" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+    </Style>
 </ResourceDictionary>

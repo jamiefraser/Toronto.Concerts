@@ -34,5 +34,6 @@ namespace Toronto.Concerts.Data
                 return DateAndTime.ToString("MMM dd");
             }
         }
+        public string LatLong { get; set; }
     }
 }

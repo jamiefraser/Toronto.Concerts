@@ -1,4 +1,5 @@
 ﻿using MonkeyCache.FileStore;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http.Json;
@@ -238,11 +239,12 @@ namespace Toronto.Concerts.Services
             //}
 
             //Dev handles checking if cache is expired
-            System.Diagnostics.Debug.WriteLine(Barrel.Current.Get<string>(key: url));
+            //System.Diagnostics.Debug.WriteLine(Barrel.Current.Get<string>(key: url));
             if (!Barrel.Current.IsExpired(key: url))
             {
                 Concerts = Barrel.Current.Get<IEnumerable<Concert>>(key: url).ToList();
                 GroupedConcerts = Concerts.GroupBy(c => c.DateAndTime.Date.ToString("MMM dd"));
+                System.Diagnostics.Debug.WriteLine(JsonConvert.SerializeObject(Concerts));
                 return Concerts;
             }
             try
@@ -266,10 +268,11 @@ namespace Toronto.Concerts.Services
 
                 var concertsResponse = await _client.GetAsync("https://concertsfunctions.azurewebsites.net/api/RetrieveConcerts?code=ZrCRZVpk1MKhcSEBRTDe86NAXl9X7HivlLVZDUxSqCOOAzFuS2TNZw==");
                 var json = await concertsResponse.Content.ReadAsStringAsync();
-                System.Diagnostics.Debug.WriteLine(json);
+                //System.Diagnostics.Debug.WriteLine(json);
                 Concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(json);
                 GroupedConcerts = Concerts.GroupBy(c => c.DateAndTime.Date.ToString("MMM dd"));
                 //Saves the cache and pass it a timespan for expiration
+                System.Diagnostics.Debug.WriteLine(JsonConvert.SerializeObject(Concerts));
                 Barrel.Current.Add(key: url, data: concerts, expireIn: TimeSpan.FromDays(1));
                 return concerts;
             }

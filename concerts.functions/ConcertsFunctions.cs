@@ -20,6 +20,7 @@ namespace concerts.functions
 {
     public class ConcertsFunctions
     {
+        #region Test
         [FunctionName("FillCacheManually")]
         [StorageAccount("StorageConnection")]
         public async Task TestFetch([HttpTrigger] HttpRequest req, [Blob(blobPath: "concertscache/concerts.json", FileAccess.Write)] BlockBlobClient fileJson, ILogger log)
@@ -27,6 +28,9 @@ namespace concerts.functions
             try
             {
                 var json = await GetConcerts();
+                var concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(json);
+                concerts = await ProcessVenueAddresses(concerts);
+                json = Newtonsoft.Json.JsonConvert.SerializeObject(concerts);
                 byte[] byteArray = Encoding.UTF8.GetBytes(json);
                 {
                     var accessCondition = new AccessCondition();
@@ -39,19 +43,25 @@ namespace concerts.functions
                     accessCondition.IfMatchETag = "*";
                     MemoryStream ms = new MemoryStream(byteArray);
                     var result = await fileJson.UploadAsync(ms);
-                    System.Diagnostics.Debug.WriteLine(result.GetRawResponse().Status);
-                    //var s = await fileJson.OpenWriteAsync(true,blobRequestOptions);
-                    //await s.WriteAsync(byteArray, 0, byteArray.Length);
-                    //await s.FlushAsync();
-                    ////await fileJson.FlushAsync();
-                    //s.Close();
                 }
-                System.Diagnostics.Debug.WriteLine(json);
             }
             catch (Exception ex)
             {
                 throw;
             }
+        }
+        #endregion
+
+        [FunctionName("ProcessVenueAddresses")]
+        [StorageAccount("StorageConnection")]
+        private async Task<List<Concert>> ProcessVenueAddresses(List<Concert>concerts)
+        {
+
+            foreach(var c in concerts)
+            {
+                c.LatLong = (await GeocodePlaceNamesAsync(c.venue)).LatLong;
+            }
+            return concerts;
         }
         [FunctionName("FetchConcerts")]
         [StorageAccount("StorageConnection")]
@@ -60,24 +70,55 @@ namespace concerts.functions
             try
             {
                 var json = await GetConcerts();
+                var concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(json);
+                try
+                {
+                    concerts = await ProcessVenueAddresses(concerts);
+                    json = Newtonsoft.Json.JsonConvert.SerializeObject(concerts);
+                }
+                catch (Exception ex)
+                {
+                    //should log and report here
+                }
                 byte[] byteArray = Encoding.UTF8.GetBytes(json);
                 fileJson.Write(byteArray, 0, byteArray.Length);
-                System.Diagnostics.Debug.WriteLine(json);
             }
             catch (Exception ex)
             {
                 //should log and report here
             }
         }
+        private static async Task<GeocodedEntry> GeocodePlaceNamesAsync(string placename)
+        {
+            var apiKey = "AIzaSyBgPVXWlSWmvsyTkvObWAmeGoTTKPDpJVk"; // Replace with your actual API key
+            var baseUri = new Uri("https://maps.googleapis.com/maps/api/geocode/json");
+
+            var geocodedData = new List<GeocodedEntry>();
+            using (var httpClient = new HttpClient())
+            {
+
+                var queryParams = $"address={Uri.EscapeDataString(placename)}&key={apiKey}";
+                var response = await httpClient.GetAsync($"{baseUri}?{queryParams}");
+                var content = await response.Content.ReadAsStringAsync();
+
+                // Parse the JSON response
+                // You can use a JSON library like Newtonsoft.Json to deserialize the data
+                // Example: var result = JsonConvert.DeserializeObject<GeocodingResult>(content);
+
+                // For demonstration purposes, let's assume the data is already parsed
+                var geocodedEntry = Newtonsoft.Json.JsonConvert.DeserializeObject<GeocodedEntry>(content);
+                return geocodedEntry;
+            }
+        }
         [FunctionName("RetrieveConcerts")]
         [StorageAccount("StorageConnection")]
-        public async Task<IEnumerable<Concert>>RetrieveConcerts([HttpTrigger] HttpRequest req, [Blob("concertscache/concerts.json", FileAccess.Read)] Stream fileJson, ILogger log)
+        public async Task<IEnumerable<Concert>> RetrieveConcerts([HttpTrigger] HttpRequest req, [Blob("concertscache/concerts.json", FileAccess.Read)] Stream fileJson, ILogger log)
         {
             fileJson.Position = 0;
             List<Concert> concerts;
             using (StreamReader reader = new StreamReader(fileJson, Encoding.UTF8))
             {
-                concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>( reader.ReadToEnd());
+                concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(reader.ReadToEnd());
             }
             return concerts;
         }
@@ -95,8 +136,6 @@ namespace concerts.functions
                 enhancedOnly = false,
                 locations = new Toronto.Concerts.Data.Location[] { location, new Toronto.Concerts.Data.Location() { id = "2", name = "Halton-Peel Regions" }, new Toronto.Concerts.Data.Location() { id = "3", name = "York Region" }, new Toronto.Concerts.Data.Location() { id = "4", name = "Durham Region" } }
             };
-            System.Diagnostics.Debug.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(concertQuery));
-            //{"query":"","listingId":null,"enhancedOnly":false,"startDate":1681358400,"endDate":1683432000,"locations":[{"id":"1","name":"City+of+Toronto"},{"id":"2","name":"Halton-Peel+Regions"},{"id":"3","name":"York+Region"},{"id":"4","name":"Durham+Region"}],"tags":["Chamber","Choral","Early/Baroque","Musical+Theatre","New+Music","Organ","Orchestra","Piano","Solo+Voice","Strings","Religious+Service"]}
             var formContent = new FormUrlEncodedContent(new[]
                                                         {
                                                                 new KeyValuePair<string, string>("query", Newtonsoft.Json.JsonConvert.SerializeObject(concertQuery))
@@ -104,7 +143,6 @@ namespace concerts.functions
 
             var concertsResponse = await _client.PostAsync("https://www.thewholenote.com/ludwig/listings/search.php", formContent);
             var json = await concertsResponse.Content.ReadAsStringAsync();
-            System.Diagnostics.Debug.WriteLine(json);
             return json;
         }
     }
