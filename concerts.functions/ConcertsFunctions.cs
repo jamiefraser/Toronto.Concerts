@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Http;
+using System.Reflection.Metadata;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -29,20 +32,27 @@ namespace concerts.functions
             {
                 var json = await GetConcerts();
                 var concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(json);
-                concerts = await ProcessVenueAddresses(concerts);
-                json = Newtonsoft.Json.JsonConvert.SerializeObject(concerts);
-                byte[] byteArray = Encoding.UTF8.GetBytes(json);
+                try
                 {
-                    var accessCondition = new AccessCondition();
-                    var blobRequestOptions = new BlockBlobOpenWriteOptions();
+                    concerts = await ProcessVenueAddresses(concerts);
+                    json = Newtonsoft.Json.JsonConvert.SerializeObject(concerts);
+                    byte[] byteArray = Encoding.UTF8.GetBytes(json);
+                    {
+                        var accessCondition = new AccessCondition();
+                        var blobRequestOptions = new BlockBlobOpenWriteOptions();
 
-                    var operationContext = new OperationContext();
+                        var operationContext = new OperationContext();
 
-                    // ETag access condition is used so that it will not cause any issue due to ongoing concurrent modification on the same blob
+                        // ETag access condition is used so that it will not cause any issue due to ongoing concurrent modification on the same blob
 
-                    accessCondition.IfMatchETag = "*";
-                    MemoryStream ms = new MemoryStream(byteArray);
-                    var result = await fileJson.UploadAsync(ms);
+                        accessCondition.IfMatchETag = "*";
+                        MemoryStream ms = new MemoryStream(byteArray);
+                        var result = await fileJson.UploadAsync(ms);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
                 }
             }
             catch (Exception ex)
@@ -54,12 +64,27 @@ namespace concerts.functions
 
         [FunctionName("ProcessVenueAddresses")]
         [StorageAccount("StorageConnection")]
-        private async Task<List<Concert>> ProcessVenueAddresses(List<Concert>concerts)
+        private async Task<List<Concert>> ProcessVenueAddresses(List<Concert> concerts)
         {
 
-            foreach(var c in concerts)
+            foreach (var c in concerts)
             {
-                c.LatLong = (await GeocodePlaceNamesAsync(c.venue)).LatLong;
+                if(!string.IsNullOrEmpty(c.venue))
+                {
+                    var place = await GeocodePlaceNamesAsync(c.venue);
+                    if (place != null && !string.IsNullOrEmpty(place.LatLong))
+                    {
+                        c.LatLong = place.LatLong;
+                    }
+                    else
+                    {
+                        place = await GeocodePlaceNamesAsync(c.address + " ON");
+                        if(place != null)
+                        {
+                            c.LatLong = place.LatLong;
+                        }
+                    }
+                }
             }
             return concerts;
         }
@@ -90,25 +115,50 @@ namespace concerts.functions
         }
         private static async Task<GeocodedEntry> GeocodePlaceNamesAsync(string placename)
         {
+
             var apiKey = "AIzaSyBgPVXWlSWmvsyTkvObWAmeGoTTKPDpJVk"; // Replace with your actual API key
             var baseUri = new Uri("https://maps.googleapis.com/maps/api/geocode/json");
-
+            GeocodedEntry geocodedEntry = new GeocodedEntry();
             var geocodedData = new List<GeocodedEntry>();
             using (var httpClient = new HttpClient())
             {
+                try
+                {
+                    var queryParams = $"address={Uri.EscapeDataString(placename)}&key={apiKey}";
+                    var response = await httpClient.GetAsync($"{baseUri}?{queryParams}");
+                    var content = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(content);
+                    // Parse the JSON response
+                    // You can use a JSON library like Newtonsoft.Json to deserialize the data
+                    // Example: var result = JsonConvert.DeserializeObjecet<GeocodingResult>(content);
 
-                var queryParams = $"address={Uri.EscapeDataString(placename)}&key={apiKey}";
-                var response = await httpClient.GetAsync($"{baseUri}?{queryParams}");
-                var content = await response.Content.ReadAsStringAsync();
-
-                // Parse the JSON response
-                // You can use a JSON library like Newtonsoft.Json to deserialize the data
-                // Example: var result = JsonConvert.DeserializeObject<GeocodingResult>(content);
-
-                // For demonstration purposes, let's assume the data is already parsed
-                var geocodedEntry = Newtonsoft.Json.JsonConvert.DeserializeObject<GeocodedEntry>(content);
-                return geocodedEntry;
+                    // For demonstration purposes, let's assume the data is already parsed
+                    if (!string.IsNullOrEmpty(content))
+                    {
+                        var geocodedEntries = Newtonsoft.Json.JsonConvert.DeserializeObject<GeocodedEntries>(content);
+                        if (geocodedEntries != null && geocodedEntries.results != null && geocodedEntries.results.Count() > 0)
+                        {
+                            geocodedEntry = new GeocodedEntry()
+                            {
+                                Address = geocodedEntries.results.First().formatted_address,
+                                LatLong = geocodedEntries.results.First().geometry.location.lat + "," + geocodedEntries.results.First().geometry.location.lng,
+                                Name = placename
+                            };
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Couldn't get an address for location: {placename}");
+                        }
+                    }
+                    return geocodedEntry;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return new GeocodedEntry();
+                }
             }
+
         }
         [FunctionName("RetrieveConcerts")]
         [StorageAccount("StorageConnection")]
