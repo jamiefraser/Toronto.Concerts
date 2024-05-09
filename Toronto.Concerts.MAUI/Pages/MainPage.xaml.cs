@@ -1,6 +1,7 @@
 ﻿using Syncfusion.Maui.DataSource.Extensions;
 using System.ComponentModel;
 using Toronto.Concerts.Data;
+using Toronto.Concerts.MAUI.ValueConverters;
 using Toronto.Concerts.MAUI.ViewModels;
 
 namespace Toronto.Concerts.MAUI
@@ -9,12 +10,13 @@ namespace Toronto.Concerts.MAUI
     {
         int count = 0;
         private MainPageViewModel vm;
-        public MainPage(MainPageViewModel _vm)
+        public MainPage(MainPageViewModel _vm, IServiceProvider serviceProvider)
         {
             InitializeComponent();
             vm = _vm;
             this.BindingContext = vm;
             vm.PropertyChanged += OnSelectedConcertChanged;
+            this.Resources.Add("VenueToDistanceConverter", serviceProvider.GetRequiredService<VenueToDistanceConverter>());
         }
         private void OnSelectedConcertChanged(object sender, PropertyChangedEventArgs e)
         {

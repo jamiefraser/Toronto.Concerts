@@ -49,6 +49,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Image Source="{Binding Converter={StaticResource PerformerToImageConverter}}"
                                        Grid.Column="0"
@@ -75,6 +76,12 @@
                                        Grid.Row="2"
                                        Grid.Column="1"
                                        Grid.ColumnSpan="2" />
+                                <Label Text="{Binding LatLong, Converter={StaticResource VenueToDistanceConverter}}"
+                                       Style="{StaticResource ConcertDetail}"
+                                       IsVisible="{Binding LatLong, Converter={StaticResource NullToVisibilityConverter}}"
+                                       Grid.Row="3"
+                                       Grid.Column="1"
+                                       Grid.ColumnSpan="2"/>
                             </Grid>
                             <!--<Label Text="{Binding title}" 
                                   Style="{StaticResource ConcertTitle}" 

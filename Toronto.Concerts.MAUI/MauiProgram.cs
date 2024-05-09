@@ -5,6 +5,8 @@ using Toronto.Concerts.MAUI.ViewModels;
 using Toronto.Concerts.Services;
 using CommunityToolkit.Maui;
 using Syncfusion.Maui.Core.Hosting;
+using Toronto.Concerts.MAUI.Services;
+using Toronto.Concerts.MAUI.ValueConverters;
 namespace Toronto.Concerts.MAUI
 {
     public static class MauiProgram
@@ -38,10 +40,12 @@ namespace Toronto.Concerts.MAUI
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SOSPageViewModel, SOSPageViewModel>();
             builder.Services.AddSingleton<SOSPage>();
-            builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
-            builder.Services.AddSingleton<IGeocoding>(Geocoding.Default);
+            builder.Services.AddSingleton<IGeolocation>(Microsoft.Maui.Devices.Sensors.Geolocation.Default);
+            builder.Services.AddSingleton<IGeocoding>(Microsoft.Maui.Devices.Sensors.Geocoding.Default);
             builder.Services.AddSingleton<ConcertDetailViewModel, ConcertDetailViewModel>();
             builder.Services.AddSingleton<ConcertDetailPage>();
+            builder.Services.AddSingleton<UserLocationService, UserLocationService>();
+            builder.Services.AddSingleton<VenueToDistanceConverter, VenueToDistanceConverter>();
             return builder.Build();
         }
     }

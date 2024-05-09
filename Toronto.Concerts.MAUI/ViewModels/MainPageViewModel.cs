@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toronto.Concerts.Data;
+using Toronto.Concerts.MAUI.Services;
 using Toronto.Concerts.Services;
 
 namespace Toronto.Concerts.MAUI.ViewModels
@@ -14,13 +15,25 @@ namespace Toronto.Concerts.MAUI.ViewModels
     public partial class MainPageViewModel : ViewModelBase
     {
         private IConcertDataService _concertDataService;
-        public MainPageViewModel(IConcertDataService concertDataService)
+        private UserLocationService userLocationService;
+        public MainPageViewModel(IConcertDataService concertDataService, UserLocationService _userLocationService)
         {
             _concertDataService = concertDataService;
+            userLocationService = _userLocationService;
+            userLocationService.PropertyChanged += UserLocationService_PropertyChanged;
             _concertDataService.PropertyChanged += _concertDataService_PropertyChanged;
             _concertDataService.GetConcerts();
             //_concertDataService.GetConcerts();
         }
+
+        private void UserLocationService_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName=="Latitude" || e.PropertyName=="Longitude")
+            {
+                OnPropertyChanged(nameof(Concerts));
+            }
+        }
+
         private Concert selectedconcert;
         public Concert SelectedConcert
         {
@@ -31,7 +44,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
             }
             set
             {
-                if (value != null && value != _concertDataService.SelectedConcert)
+                if (value != null )
                 {
                     _concertDataService.SelectedConcert = value;
                     OnPropertyChanged(nameof(SelectedConcert));

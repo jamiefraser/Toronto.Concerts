@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
 using Toronto.Concerts.Data;
+using Toronto.Concerts.MAUI.Services;
 
 namespace Toronto.Concerts.Services
 {
@@ -116,8 +117,10 @@ namespace Toronto.Concerts.Services
             }
         }
         private List<Concert> concerts = new List<Concert>();
-        public ConcertDataService()
+        private readonly UserLocationService userLocationService;
+        public ConcertDataService(UserLocationService _userLocationService)
         {
+            userLocationService = _userLocationService;
             _client = new HttpClient();
         }
         private bool busy = true;

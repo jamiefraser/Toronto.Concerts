@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:models="clr-namespace:Toronto.Concerts.Data"
              x:Class="Toronto.Concerts.MAUI.Pages.ConcertDetailPage"
-             Title="ConcertDetailPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding title}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="{Binding title}">
+    <StackLayout>
+        <!-- Concert Title -->
+        <Label Text="{Binding SelectedConcert.title}" FontSize="24" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Presenter -->
+        <Label Text="{Binding SelectedConcert.presenter}" FontSize="18" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Concert Date and Time -->
+        <Label Text="{Binding SelectedConcert.GroupableDate}" FontSize="16" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Venue -->
+        <Label Text="{Binding SelectedConcert.venue}" FontSize="16" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Description -->
+        <Label Text="{Binding SelectedConcert.description}" FontSize="14" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Performers -->
+        <Label Text="{Binding SelectedConcert.performers}" FontSize="14" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Ticket Prices -->
+        <Label Text="{Binding SelectedConcert.prices}" FontSize="14" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Address -->
+        <Label Text="{Binding SelectedConcert.address}" FontSize="14" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Phone Number -->
+        <Label Text="{Binding SelectedConcert.phone}" FontSize="14" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Special Notes -->
+        <Label Text="{Binding SelectedConcert.spnotes}" FontSize="14" HorizontalOptions="CenterAndExpand" />
+
+        <!-- Map (LatLong) -->
+        <!-- You can use a map control to display the concert location on a map -->
+        <maps:Map ItemsSource="{Binding ConcertVenue}"
+                  x:Name="map"
+                  IsShowingUser="True"
+                  IsZoomEnabled="True"
+                  IsScrollEnabled="True"
+                  IsTrafficEnabled="True">
+            <maps:Map.ItemTemplate>
+                <DataTemplate x:DataType="models:Place">
+                    <maps:Pin Location="{Binding Location}"
+                              Address="{Binding Address}"
+                              Label="{Binding Description}" />
+                </DataTemplate>
+            </maps:Map.ItemTemplate>
+        </maps:Map>
+    </StackLayout>
 </ContentPage>
