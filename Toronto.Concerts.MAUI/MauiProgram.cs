@@ -12,7 +12,7 @@ namespace Toronto.Concerts.MAUI
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF5cWWdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXpeeHRcQ2lcUEd+WkE=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NBaF1cXmhMYVJwWmFZfVpgfV9EY1ZUQmYuP1ZhSXxXdkBjUH9XcndQQGdaWUQ=");
             builder
                 .UseMauiApp<App>()
                 .ConfigureSyncfusionCore()
@@ -40,6 +40,8 @@ namespace Toronto.Concerts.MAUI
             builder.Services.AddSingleton<SOSPage>();
             builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
             builder.Services.AddSingleton<IGeocoding>(Geocoding.Default);
+            builder.Services.AddSingleton<ConcertDetailViewModel, ConcertDetailViewModel>();
+            builder.Services.AddSingleton<ConcertDetailPage>();
             return builder.Build();
         }
     }

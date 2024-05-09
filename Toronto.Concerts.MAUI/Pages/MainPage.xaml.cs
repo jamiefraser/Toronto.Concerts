@@ -23,12 +23,15 @@ namespace Toronto.Concerts.MAUI
                 cvConcerts.ItemsSource = vm.GroupedConcerts;
             }
             if (e.PropertyName == "SelectedConcert")
+            {
                 try
                 {
-                    var index = vm.Concerts.IndexOf(vm.SelectedConcert);
-                    cvConcerts.ScrollTo(position: index);
+                    Shell.Current.GoToAsync("concertdetail", true);
+                    //var index = vm.Concerts.IndexOf(vm.SelectedConcert);
+                    //cvConcerts.ScrollTo(position: index);
                 }
                 catch { }
+            }
         }
         private void OnCounterClicked(object sender, EventArgs e)
         {
@@ -45,5 +48,4 @@ namespace Toronto.Concerts.MAUI
             await Shell.Current.GoToAsync("sos",true);
         }
     }
-
 }

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Toronto.Concerts.MAUI.ValueConverters"
              xmlns:sf="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:behaviors="clr-namespace:Toronto.Concerts.MAUI.Behaviors"
              x:Class="Toronto.Concerts.MAUI.MainPage"
              
@@ -22,11 +23,14 @@
             <sf:SfListView x:Name="cvConcerts" 
                            ItemsSource="{Binding Concerts}"
                            SelectionMode="Single"
-                           SelectedItem="{Binding SelectedConcert, Mode=TwoWay}"
+                           SelectedItem="{Binding SelectedConcert}"
                            ItemSpacing="10"
                            AutoFitMode="DynamicHeight"
                            >
                 <sf:SfListView.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="ItemTapped"
+                                                    x:TypeArguments="ItemTappedEventArgs"
+                                                    Command="{Binding NavigateToConcertCommand}"/>
                     <behaviors:ConcertGroupingBehavior />
                 </sf:SfListView.Behaviors>
                 <sf:SfListView.ItemTemplate>
@@ -34,6 +38,7 @@
                         <StackLayout Style="{StaticResource ConcertItem}"
                                      VerticalOptions="StartAndExpand"
                                     >
+                            
                             <Grid Padding="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>

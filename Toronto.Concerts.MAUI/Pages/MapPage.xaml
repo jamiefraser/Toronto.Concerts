@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:Toronto.Concerts.MAUI.Behaviors"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:models="clr-namespace:Toronto.Concerts.Data"
+             x:Class="Toronto.Concerts.MAUI.Pages.MapPage"
+             Title="MapPage">
+    <VerticalStackLayout>
+        <maps:Map ItemsSource="{Binding Places}"
+                 HeightRequest="{Binding Source={x:Reference Name=svParent},Path=Height}"
+                 x:Name="map"
+                 IsShowingUser="True"
+                 IsZoomEnabled="True"
+                 IsScrollEnabled="True"
+                 IsTrafficEnabled="True"
+                 >
+
+            <maps:Map.Behaviors>
+                <behaviors:MapBehavior 
+                   IsReady="{Binding IsReady}"
+                   Places="{Binding  BindablePlaces}"
+                   />
+            </maps:Map.Behaviors>
+
+            <maps:Map.ItemTemplate>
+                <DataTemplate x:DataType="models:Concert">
+                    <maps:Pin Location="{Binding LatLong}"
+                             Address="{Binding  address}"
+                             Label="{Binding    venue}" />
+                </DataTemplate>
+            </maps:Map.ItemTemplate>
+        </maps:Map>
+    </VerticalStackLayout>
+</ContentPage>

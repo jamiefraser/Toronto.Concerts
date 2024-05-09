@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using Toronto.Concerts.Services;
 
 namespace Toronto.Concerts.MAUI.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase
+    public partial class MainPageViewModel : ViewModelBase
     {
         private IConcertDataService _concertDataService;
         public MainPageViewModel(IConcertDataService concertDataService)
@@ -30,11 +31,10 @@ namespace Toronto.Concerts.MAUI.ViewModels
             }
             set
             {
-                if (value != null)
+                if (value != null && value != _concertDataService.SelectedConcert)
                 {
-                    selectedconcert = value;
+                    _concertDataService.SelectedConcert = value;
                     OnPropertyChanged(nameof(SelectedConcert));
-                    SelectedDate = selectedconcert.DateAndTime.Date;
                 }
             }
         }
@@ -83,6 +83,12 @@ namespace Toronto.Concerts.MAUI.ViewModels
                 OnPropertyChanged(nameof(Dates));
                 OnPropertyChanged(nameof(SelectedDate));
             }
+        }
+        [RelayCommand]
+        void NavigateToConcertCommand(Syncfusion.Maui.ListView.ItemTappedEventArgs eventArgs)
+        {
+            this._concertDataService.SelectedConcert = eventArgs.DataItem as Concert;
+            Shell.Current.GoToAsync("concertdetail", true);
         }
     }
 }

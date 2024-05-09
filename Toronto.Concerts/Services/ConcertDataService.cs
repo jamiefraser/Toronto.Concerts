@@ -140,14 +140,6 @@ namespace Toronto.Concerts.Services
         {
             get
             {
-                try
-
-                {
-                }
-                catch (Exception ex)
-                {
-
-                }
                 return selectedconcert;
             }
             set

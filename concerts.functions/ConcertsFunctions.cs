@@ -67,7 +67,7 @@ namespace concerts.functions
         private async Task<List<Concert>> ProcessVenueAddresses(List<Concert> concerts)
         {
 
-            foreach (var c in concerts)
+            foreach (var c in concerts.Where(c=>string.IsNullOrEmpty(c.LatLong)))
             {
                 if(!string.IsNullOrEmpty(c.venue))
                 {
@@ -90,7 +90,7 @@ namespace concerts.functions
         }
         [FunctionName("FetchConcerts")]
         [StorageAccount("StorageConnection")]
-        public async Task Run([TimerTrigger("* * */23 * * *")] TimerInfo myTimer, [Blob("concertscache/concerts.json", FileAccess.Write)] Stream fileJson, ILogger log)
+        public async Task Run([TimerTrigger("59 23 */23 0 0 0")] TimerInfo myTimer, [Blob("concertscache/concerts.json", FileAccess.Write)] Stream fileJson, ILogger log)
         {
             try
             {
