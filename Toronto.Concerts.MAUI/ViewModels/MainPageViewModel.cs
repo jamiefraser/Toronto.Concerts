@@ -87,11 +87,11 @@ namespace Toronto.Concerts.MAUI.ViewModels
         
         private async void _concertDataService_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "GroupedConcerts" || e.PropertyName=="Concerts")
+            if (e.PropertyName == "GroupedConcerts" || e.PropertyName == "Concerts")
             {
                 Concerts = _concertDataService.Concerts;
                 OnPropertyChanged(nameof(GroupedConcerts));
-                SelectedConcert = concerts.FirstOrDefault();
+               // SelectedConcert = concerts.FirstOrDefault();
                 OnPropertyChanged(nameof(Count));
                 OnPropertyChanged(nameof(Dates));
                 OnPropertyChanged(nameof(SelectedDate));

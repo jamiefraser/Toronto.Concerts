@@ -29,7 +29,24 @@ namespace Toronto.Concerts.MAUI.ViewModels
             };
             ConcertVenue.Add(place);
         }
-        public Concert SelectedConcert => _concertDataService.SelectedConcert;
+        public void UpdateConcertAndVenue()
+        {
+            concertVenue.Clear();
+            Place place = new Place()
+            {
+                Address = SelectedConcert.address,
+                Description = SelectedConcert.venue,
+                Location = new Microsoft.Maui.Devices.Sensors.Location()
+                {
+                    Latitude = double.Parse(SelectedConcert.LatLong.Split(',')[0]),
+                    Longitude = double.Parse(SelectedConcert.LatLong.Split(',')[1])
+                }
+            };
+            concertVenue.Add(place);
+            OnPropertyChanged(nameof(SelectedConcert));
+            OnPropertyChanged(nameof (ConcertVenue));
+        }
+        public Concert SelectedConcert =>   _concertDataService.SelectedConcert;
         private List<Place> concertVenue;
         public List<Place> ConcertVenue
         {

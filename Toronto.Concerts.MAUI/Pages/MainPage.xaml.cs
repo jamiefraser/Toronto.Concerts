@@ -18,6 +18,7 @@ namespace Toronto.Concerts.MAUI
             vm.PropertyChanged += OnSelectedConcertChanged;
             this.Resources.Add("VenueToDistanceConverter", serviceProvider.GetRequiredService<VenueToDistanceConverter>());
         }
+
         private void OnSelectedConcertChanged(object sender, PropertyChangedEventArgs e)
         {
             if(e.PropertyName=="GroupedConcerts" && cvConcerts.ItemsSource==null)

@@ -42,8 +42,8 @@ namespace Toronto.Concerts.MAUI
             builder.Services.AddSingleton<SOSPage>();
             builder.Services.AddSingleton<IGeolocation>(Microsoft.Maui.Devices.Sensors.Geolocation.Default);
             builder.Services.AddSingleton<IGeocoding>(Microsoft.Maui.Devices.Sensors.Geocoding.Default);
-            builder.Services.AddSingleton<ConcertDetailViewModel, ConcertDetailViewModel>();
-            builder.Services.AddSingleton<ConcertDetailPage>();
+            builder.Services.AddTransient<ConcertDetailViewModel, ConcertDetailViewModel>();
+            builder.Services.AddTransient<ConcertDetailPage>();
             builder.Services.AddSingleton<UserLocationService, UserLocationService>();
             builder.Services.AddSingleton<VenueToDistanceConverter, VenueToDistanceConverter>();
             return builder.Build();
