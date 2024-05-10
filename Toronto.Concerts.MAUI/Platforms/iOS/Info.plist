@@ -29,6 +29,6 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.relevant.wholenote.concerts</string>
+	<string>com.relevant.concerts416</string>
 </dict>
 </plist>
