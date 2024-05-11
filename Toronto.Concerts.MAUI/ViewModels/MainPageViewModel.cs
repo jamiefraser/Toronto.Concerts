@@ -28,7 +28,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
 
         private void UserLocationService_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName=="Latitude" || e.PropertyName=="Longitude")
+            if (e.PropertyName == "Latitude" || e.PropertyName == "Longitude")
             {
                 OnPropertyChanged(nameof(Concerts));
             }
@@ -44,7 +44,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
             }
             set
             {
-                if (value != null )
+                if (value != null)
                 {
                     _concertDataService.SelectedConcert = value;
                     OnPropertyChanged(nameof(SelectedConcert));
@@ -52,7 +52,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
             }
         }
         public List<DateTime> Dates => concerts.Select(c => c.DateAndTime.Date).Distinct().ToList<DateTime>();// _concertDataService.Dates;
-        
+
         private DateTime selecteddate;
         public DateTime SelectedDate
         {
@@ -66,32 +66,40 @@ namespace Toronto.Concerts.MAUI.ViewModels
                 {
                     selecteddate = value;
                     OnPropertyChanged(nameof(SelectedDate));
-                    SelectedConcert = concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date));
+                    OnPropertyChanged(nameof(Concerts));
+                    //SelectedConcert = concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date));
                 }
             }
         }
         public string Message => "Hello from ViewModel";
         private List<Concert> concerts = new List<Concert>();
 
-        public List<Concert> Concerts 
+        public List<Concert> Concerts
         {
-            get { return concerts; }
-            set 
-            { 
-                concerts = value; 
-                OnPropertyChanged(nameof(Concerts)); 
+            get
+            {
+                if(selecteddate.Equals(DateTime.MinValue))return concerts.Where(c => c.DateAndTime <= DateTime.Now).ToList<Concert>();
+                else
+                {
+                    return concerts.Where(c => c.DateAndTime >= selecteddate).ToList<Concert>();
+                }
+            }
+            set
+            {
+                concerts = value;
+                OnPropertyChanged(nameof(Concerts));
             }
         }
         public IEnumerable<IGrouping<string, Concert>> GroupedConcerts => _concertDataService.GroupedConcerts;
         public int Count => concerts.Count;
-        
+
         private async void _concertDataService_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "GroupedConcerts" || e.PropertyName == "Concerts")
             {
                 Concerts = _concertDataService.Concerts;
                 OnPropertyChanged(nameof(GroupedConcerts));
-               // SelectedConcert = concerts.FirstOrDefault();
+                // SelectedConcert = concerts.FirstOrDefault();
                 OnPropertyChanged(nameof(Count));
                 OnPropertyChanged(nameof(Dates));
                 OnPropertyChanged(nameof(SelectedDate));

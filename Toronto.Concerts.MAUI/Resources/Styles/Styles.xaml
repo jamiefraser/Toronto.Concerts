@@ -481,4 +481,5 @@
         <Setter Property="HorizontalOptions" Value="Start" />
         <Setter Property="HorizontalTextAlignment" Value="Start" />
     </Style>
+
 </ResourceDictionary>

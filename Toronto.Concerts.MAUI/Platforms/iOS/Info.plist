@@ -32,11 +32,13 @@
 	<string>com.relevant.concerts416</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow Concerts 416 to access your location when it is running</string>
-	<key>CFBundleShortVersionString</key>
-	<string>7</string>
 	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
 	<string>Allow Concerts 416 to add events to your calendar</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>CFBundleShortVersionString</key>
+	<string>10</string>
 	<key>CFBundleVersion</key>
-	<string>8</string>
+	<string>10.2</string>
 </dict>
 </plist>

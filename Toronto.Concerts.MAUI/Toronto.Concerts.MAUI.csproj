@@ -57,13 +57,7 @@
 		<MauiImage Update="Resources\Images\chambermusic.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\chambermusic.svg">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>
 		<MauiImage Update="Resources\Images\choir.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>
-		<MauiImage Update="Resources\Images\choir.svg">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\dotnet_bot.png">
@@ -72,31 +66,16 @@
 		<MauiImage Update="Resources\Images\genericclassicalmusic.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\genericclassicalmusic.svg">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>
 		<MauiImage Update="Resources\Images\opera.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>
-		<MauiImage Update="Resources\Images\opera.svg">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\orchestra.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\orchestra.svg">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>
 		<MauiImage Update="Resources\Images\piano.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\piano.svg">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>
 		<MauiImage Update="Resources\Images\pipeorgan.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>
-		<MauiImage Update="Resources\Images\pipeorgan.svg">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
 
