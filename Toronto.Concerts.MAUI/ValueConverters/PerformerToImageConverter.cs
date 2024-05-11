@@ -15,21 +15,21 @@ namespace Toronto.Concerts.MAUI.ValueConverters
                 System.Diagnostics.Debug.WriteLine("empty performers");
             }
             if (concert.performers.Contains("choir", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("elmer iseler", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("singers", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("singers", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("choir", StringComparison.InvariantCultureIgnoreCase))
-                return "choir.svg";
+                return  "choir.png";
             if (concert.performers.Contains("orchestra", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("orchestra", StringComparison.InvariantCultureIgnoreCase))
-                return "orchestra.svg";
+                return "orchestra.png";
             if (concert.performers.Contains("symphony", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("symphony", StringComparison.InvariantCultureIgnoreCase))
-                return "orchestra.svg";
+                return "orchestra.png";
             if (concert.performers.Contains("opera", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("opera", StringComparison.InvariantCultureIgnoreCase))
-                return "opera.svg";
+                return "opera.png";
             if (concert.performers.Contains("piano", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("piano", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("piano", StringComparison.InvariantCultureIgnoreCase))
-                return "piano.svg";
+                return "piano.png";
             if (concert.performers.Contains("organ", StringComparison.InvariantCultureIgnoreCase) || concert.presenter.Contains("organ", StringComparison.InvariantCultureIgnoreCase))
-                return "pipeorgan.svg";
+                return "pipeorgan.png";
             if (concert.performers.Contains("chamber", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("chamber", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("quartet", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("quartet", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("ensemble", StringComparison.InvariantCultureIgnoreCase) || concert.title.Contains("ensemble", StringComparison.InvariantCultureIgnoreCase) || concert.performers.Contains("consort", StringComparison.InvariantCultureIgnoreCase))
-                return "chambermusic.svg";
+                return "chambermusic.png";
 
-            return "genericclassicalmusic.svg";
+            return "genericclassicalmusic.png";
         }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

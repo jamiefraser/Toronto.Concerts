@@ -34,7 +34,9 @@
 	<string>Allow Concerts 416 to access your location when it is running</string>
 	<key>CFBundleShortVersionString</key>
 	<string>7</string>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>Allow Concerts 416 to add events to your calendar</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>8</string>
 </dict>
 </plist>
