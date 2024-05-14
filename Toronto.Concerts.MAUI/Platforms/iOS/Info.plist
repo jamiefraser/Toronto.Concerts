@@ -36,9 +36,9 @@
 	<false/>
 	<key>CFBundleShortVersionString</key>
 	<string>10</string>
-	<key>CFBundleVersion</key>
-	<string>10.2</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Allow Concerts 416 to write events to your calendar</string>
+	<key>CFBundleVersion</key>
+	<string>10.7</string>
 </dict>
 </plist>
