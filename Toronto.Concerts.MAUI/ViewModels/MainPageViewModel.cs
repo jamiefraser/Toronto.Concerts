@@ -78,7 +78,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
         {
             get
             {
-                if(selecteddate.Equals(DateTime.MinValue))return concerts.Where(c => c.DateAndTime <= DateTime.Now).ToList<Concert>();
+                if(selecteddate.Equals(DateTime.MinValue))return concerts;
                 else
                 {
                     return concerts.Where(c => c.DateAndTime >= selecteddate).ToList<Concert>();

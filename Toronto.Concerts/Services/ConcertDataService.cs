@@ -162,7 +162,7 @@ namespace Toronto.Concerts.Services
 
         public List<Concert> Concerts
         {
-            get { return concerts; }
+            get { return concerts.Where(c => c.DateAndTime >= DateTime.Now.Date).ToList<Concert>(); }
             set
             {
                 if (concerts != value)
