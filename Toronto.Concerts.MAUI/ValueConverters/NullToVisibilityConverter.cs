@@ -7,6 +7,7 @@ namespace Toronto.Concerts.MAUI.ValueConverters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null) return Visibility.Collapsed;
             if(value.GetType() == typeof(string))
             {
                 var isString = string.IsNullOrEmpty((string)value) ? "empty" : (string)value;
