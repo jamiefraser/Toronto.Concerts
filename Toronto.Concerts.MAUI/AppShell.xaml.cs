@@ -10,6 +10,8 @@ namespace Toronto.Concerts.MAUI
             Routing.RegisterRoute("sos", typeof(SOSPage));
             Routing.RegisterRoute("concertlocation", typeof(MapPage));
             Routing.RegisterRoute("concertdetail", typeof(ConcertDetailPage));
+            Routing.RegisterRoute("mainpage", typeof(MainPage));
+            Routing.RegisterRoute("startuppage", typeof(StartupPage));
         }
     }
 }

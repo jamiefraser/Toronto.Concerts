@@ -9,8 +9,8 @@
     Title="Toronto.Concerts.MAUI">
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" 
+        ContentTemplate="{DataTemplate pages:StartupPage}"
+        Route="startuppage" 
         >
 
     </ShellContent>

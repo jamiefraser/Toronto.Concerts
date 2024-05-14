@@ -6,6 +6,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:behaviors="clr-namespace:Toronto.Concerts.MAUI.Behaviors"
              x:Class="Toronto.Concerts.MAUI.MainPage"
+             NavigationPage.HasBackButton="False"
              
              >
     <ContentPage.Resources>
@@ -15,13 +16,13 @@
     </ContentPage.Resources>
     <VerticalStackLayout  Padding="5,5">
         <Button Clicked="Button_Clicked" Text="SOS!" />
-            <VerticalStackLayout x:Name="svParent">
+        <VerticalStackLayout x:Name="svParent">
             <Picker IsEnabled="True"
                     ItemsSource="{Binding Dates}"
                     SelectedItem="{Binding SelectedDate}"
                     ItemDisplayBinding="{Binding Date,Converter={StaticResource FriendlyDateConverter}}"/>
             <sf:SfListView x:Name="cvConcerts" 
-                           ItemsSource="{Binding Concerts}"
+                           ItemsSource="{Binding Concerts, Mode=OneWay}"
                            SelectionMode="Single"
                            SelectedItem="{Binding SelectedConcert}"
                            ItemSpacing="10"
@@ -38,7 +39,6 @@
                         <StackLayout Style="{StaticResource ConcertItem}"
                                      VerticalOptions="StartAndExpand"
                                     >
-                            
                             <Grid Padding="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -83,30 +83,6 @@
                                        Grid.Column="1"
                                        Grid.ColumnSpan="2"/>
                             </Grid>
-                            <!--<Label Text="{Binding title}" 
-                                  Style="{StaticResource ConcertTitle}" 
-                                  IsVisible="{Binding title, Converter={StaticResource NullToVisibilityConverter}}" />
-                            <Label Text="{Binding DateAndTime, StringFormat='{0:t}'}" 
-                                  Style="{StaticResource ConcertDetail}" 
-                                  IsVisible="{Binding DateAndTime, Converter={StaticResource NullToVisibilityConverter}}" />
-                            <Label Text="Presenter" 
-                                  Style="{StaticResource ConcertDetailHeader}" 
-                                  IsVisible="{Binding presenter, Converter={StaticResource NullToVisibilityConverter}}" />
-                            <Label Text="{Binding presenter}
-                               " Style="{StaticResource ConcertDetail}" 
-                                  IsVisible="{Binding presenter, Converter={StaticResource NullToVisibilityConverter}}" />
-                            <Label Text="Performers" 
-                                  Style="{StaticResource ConcertDetailHeader}" 
-                                  IsVisible="{Binding performers, Converter={StaticResource NullToVisibilityConverter}}" />
-                            <Label Text="{Binding performers}" 
-                                  Style="{StaticResource ConcertDetail}" 
-                                  IsVisible="{Binding performers, Converter={StaticResource NullToVisibilityConverter}}" />
-                            <Label Text="Venue" 
-                                  Style="{StaticResource ConcertDetailHeader}" 
-                                  IsVisible="{Binding venue, Converter={StaticResource NullToVisibilityConverter}}" />
-                            <Label Text="{Binding venue}" 
-                                  Style="{StaticResource ConcertDetail}" 
-                                  IsVisible="{Binding venue, Converter={StaticResource NullToVisibilityConverter}}" />-->
                         </StackLayout>
                     </DataTemplate>
                 </sf:SfListView.ItemTemplate>
@@ -124,68 +100,7 @@
                     </DataTemplate>
                 </sf:SfListView.GroupHeaderTemplate>
             </sf:SfListView>
-            <!--"<ScrollView>
-                <CollectionView ItemsSource="{Binding GroupedConcerts}"
-                            IsGrouped="True"
-                            MinimumWidthRequest="{Binding RenderedWidth, Source={RelativeSource AncestorType={x:Type ContentPage},AncestorLevel=1}}"
-                            SelectedItem="{Binding SelectedConcert, Mode=TwoWay}"
-                            SelectionMode="Single"
-                            x:Name="cvConcerts"
-                            >
-                    <CollectionView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Text="{Binding Key}" 
-                                   FontSize="Large" 
-                                   FontAttributes="Bold" 
-                                   Grid.Column="0"/>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.GroupHeaderTemplate>
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" 
-                                       ItemSpacing="10"
-                                       SnapPointsAlignment="Start"
-                                       SnapPointsType="MandatorySingle"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-
-                            <StackLayout Style="{StaticResource ConcertItem}"
-                                     >
-                                <Label Text="{Binding title}" 
-                                   Style="{StaticResource ConcertTitle}" 
-                                   IsVisible="{Binding title, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <Label Text="{Binding DateAndTime, StringFormat='{0:t}'}" 
-                                   Style="{StaticResource ConcertDetail}" 
-                                   IsVisible="{Binding DateAndTime, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <Label Text="Presenter" 
-                                   Style="{StaticResource ConcertDetailHeader}" 
-                                   IsVisible="{Binding presenter, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <Label Text="{Binding presenter}
-                                " Style="{StaticResource ConcertDetail}" 
-                                   IsVisible="{Binding presenter, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <Label Text="Performers" 
-                                   Style="{StaticResource ConcertDetailHeader}" 
-                                   IsVisible="{Binding performers, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <Label Text="{Binding performers}" 
-                                   Style="{StaticResource ConcertDetail}" 
-                                   IsVisible="{Binding performers, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <Label Text="Venue" 
-                                   Style="{StaticResource ConcertDetailHeader}" 
-                                   IsVisible="{Binding venue, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <Label Text="{Binding venue}" 
-                                   Style="{StaticResource ConcertDetail}" 
-                                   IsVisible="{Binding venue, Converter={StaticResource NullToVisibilityConverter}}" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>-->
+            
         </VerticalStackLayout> 
     </VerticalStackLayout>
 </ContentPage>

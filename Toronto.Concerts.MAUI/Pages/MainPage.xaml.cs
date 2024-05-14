@@ -1,6 +1,7 @@
 ﻿using Syncfusion.Maui.DataSource.Extensions;
 using System.ComponentModel;
 using Toronto.Concerts.Data;
+using Toronto.Concerts.MAUI.Pages;
 using Toronto.Concerts.MAUI.ValueConverters;
 using Toronto.Concerts.MAUI.ViewModels;
 
@@ -21,9 +22,10 @@ namespace Toronto.Concerts.MAUI
 
         private void OnSelectedConcertChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName=="GroupedConcerts" && cvConcerts.ItemsSource==null)
+            if(e.PropertyName=="Concerts")
             {
-                cvConcerts.ItemsSource = vm.GroupedConcerts;
+                //cvConcerts.ItemsSource = vm.Concerts;
+                //cvConcerts.RefreshView();
             }
             if (e.PropertyName == "SelectedConcert")
             {
@@ -33,7 +35,9 @@ namespace Toronto.Concerts.MAUI
                     //var index = vm.Concerts.IndexOf(vm.SelectedConcert);
                     //cvConcerts.ScrollTo(position: index);
                 }
-                catch { }
+                catch 
+                { 
+                }
             }
         }
         private void OnCounterClicked(object sender, EventArgs e)
@@ -45,7 +49,22 @@ namespace Toronto.Concerts.MAUI
         {
             
         }
-
+        protected override void OnNavigatedTo(NavigatedToEventArgs args)
+        {
+            base.OnNavigatedTo(args);
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var stack = Shell.Current.Navigation.NavigationStack.ToArray();
+            for (int i = stack.Length - 1; i > 0; i--)
+            {
+                if (!stack[i].GetType().Equals(typeof(MainPage)))
+                {
+                    Shell.Current.Navigation.RemovePage(stack[i]);
+                }
+            }
+        }
         private async void Button_Clicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("sos",true);

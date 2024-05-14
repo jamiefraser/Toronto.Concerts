@@ -106,7 +106,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
             }
         }
         [RelayCommand]
-        void NavigateToConcertCommand(Syncfusion.Maui.ListView.ItemTappedEventArgs eventArgs)
+        public void NavigateToConcertCommand(Syncfusion.Maui.ListView.ItemTappedEventArgs eventArgs)
         {
             this._concertDataService.SelectedConcert = eventArgs.DataItem as Concert;
             Shell.Current.GoToAsync("concertdetail", true);

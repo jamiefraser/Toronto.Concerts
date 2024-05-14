@@ -18,14 +18,14 @@ namespace Toronto.Concerts.MAUI
             builder
                 .UseMauiApp<App>()
                 .ConfigureSyncfusionCore()
+                .UseMauiCompatibility()
                 .UseMauiCommunityToolkit()
                 .UseMauiMaps()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                })
-                .UseMauiCompatibility();
+                });
             
 #if DEBUG
             builder.Logging.AddDebug();
@@ -46,6 +46,8 @@ namespace Toronto.Concerts.MAUI
             builder.Services.AddTransient<ConcertDetailPage>();
             builder.Services.AddSingleton<UserLocationService, UserLocationService>();
             builder.Services.AddSingleton<VenueToDistanceConverter, VenueToDistanceConverter>();
+            builder.Services.AddSingleton<StartupViewModel, StartupViewModel>();
+            builder.Services.AddSingleton<StartupPage>();
             return builder.Build();
         }
     }
