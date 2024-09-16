@@ -90,7 +90,7 @@ namespace concerts.functions
         }
         [FunctionName("FetchConcerts")]
         [StorageAccount("StorageConnection")]
-        public async Task Run([TimerTrigger("59 23 */23 1 * *")] TimerInfo myTimer, [Blob("concertscache/concerts.json", FileAccess.Write)] Stream fileJson, ILogger log)
+        public async Task Run([TimerTrigger("59 59 23 1 * *")] TimerInfo myTimer, [Blob("concertscache/concerts.json", FileAccess.Write)] Stream fileJson, ILogger log)
         {
             try
             {
