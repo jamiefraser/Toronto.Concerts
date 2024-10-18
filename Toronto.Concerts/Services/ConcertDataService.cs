@@ -235,6 +235,7 @@ namespace Toronto.Concerts.Services
 
             //Dev handles checking if cache is expired
             //System.Diagnostics.Debug.WriteLine(Barrel.Current.Get<string>(key: url));
+            
             if (!Barrel.Current.IsExpired(key: url))
             {
                 Concerts = Barrel.Current.Get<IEnumerable<Concert>>(key: url).ToList();
@@ -261,7 +262,7 @@ namespace Toronto.Concerts.Services
                                                                 new KeyValuePair<string, string>("query", Newtonsoft.Json.JsonConvert.SerializeObject(concertQuery))
                                                             });
 
-                var concertsResponse = await _client.GetAsync("https://concertsfunctions.azurewebsites.net/api/RetrieveConcerts?code=ZrCRZVpk1MKhcSEBRTDe86NAXl9X7HivlLVZDUxSqCOOAzFuS2TNZw==");
+                var concertsResponse = await _client.GetAsync("https://torontoconcertsfunctions.azurewebsites.net/api/RetrieveConcerts?code=z1dc0GeR6m5gZWjG7dADmojq5vRCh280xa9ztrkJ-5hTAzFuiRhT1A%3D%3D");
                 var json = await concertsResponse.Content.ReadAsStringAsync();
                 //System.Diagnostics.Debug.WriteLine(json);
                 Concerts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Concert>>(json);

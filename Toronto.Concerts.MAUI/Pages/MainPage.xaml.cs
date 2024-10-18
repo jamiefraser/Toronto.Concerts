@@ -24,8 +24,8 @@ namespace Toronto.Concerts.MAUI
         {
             if(e.PropertyName=="Concerts")
             {
-                //cvConcerts.ItemsSource = vm.Concerts;
-                //cvConcerts.RefreshView();
+                cvConcerts.ItemsSource = vm.Concerts;
+                cvConcerts.RefreshView();
             }
             if (e.PropertyName == "SelectedConcert")
             {
@@ -67,7 +67,7 @@ namespace Toronto.Concerts.MAUI
         }
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("sos",true);
+            await Shell.Current.GoToAsync("mainpage",true);
         }
     }
 }

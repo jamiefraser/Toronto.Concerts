@@ -15,7 +15,7 @@
         <converters:PerformerToImageConverter x:Key="PerformerToImageConverter" x:Name="PerformerToImageConverter" />
     </ContentPage.Resources>
     <VerticalStackLayout  Padding="5,5">
-        <Button Clicked="Button_Clicked" Text="SOS!" />
+        <!--<Button Clicked="Button_Clicked" Text="SOS!" />-->
         <VerticalStackLayout x:Name="svParent">
             <Picker IsEnabled="True"
                     ItemsSource="{Binding Dates}"

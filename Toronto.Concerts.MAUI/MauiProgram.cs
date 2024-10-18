@@ -14,7 +14,7 @@ namespace Toronto.Concerts.MAUI
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NBaF1cXmhMYVJwWmFZfVpgfV9EY1ZUQmYuP1ZhSXxXdkBjUH9XcndQQGdaWUQ=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzUzNzcxOEAzMjM3MmUzMDJlMzBOdXVOV2RGdzJWNmZ4K0YrZ1dkNnI3R0dsNjd5UFJWalFjUFFtckVSaHRzPQ==;MzUzNzcxOUAzMjM3MmUzMDJlMzBmVHNCTDBGbGVPb0J0VXgwNWxHYldOQjMzTGt2TnB3YkJmZ0JpdGZnRlFNPQ==;MzUzNzcyMEAzMjM3MmUzMDJlMzBNejc4Y1JSU015TUJ6L2NHc1Q0VU0yOURCOTI2NVpoaG53YUkzSGJUc1lNPQ==;MzUzNzcyMUAzMjM3MmUzMDJlMzBCSTA1ZnRqQWMySFllQkwxRURTbkszK25CcTNENDdDOVVHSHNwU00yb2NJPQ==;MzUzNzcyMkAzMjM3MmUzMDJlMzBOdXVOV2RGdzJWNmZ4K0YrZ1dkNnI3R0dsNjd5UFJWalFjUFFtckVSaHRzPQ==\r\n\r\n");
             builder
                 .UseMauiApp<App>()
                 .ConfigureSyncfusionCore()
