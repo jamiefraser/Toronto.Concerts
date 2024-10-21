@@ -39,9 +39,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-	  <CodesignKey>Apple Development: Created via API (FYG7P4A2ML)</CodesignKey>
-	  <CodesignProvision>VS: com.relevant.concerts416 Development</CodesignProvision>
-	  <ProvisioningType>automatic</ProvisioningType>
+	  <CodesignKey>iPhone Distribution: Peter Fraser (V4NK73GGWK)</CodesignKey>
+	  <CodesignProvision>iOS Team Store Provisioning Profile: com.relevant.concerts416</CodesignProvision>
+	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -111,19 +111,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Common" Version="8.2.2" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
-		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.0.0" />
-		<PackageReference Include="CommunityToolkit.Maui.Maps" Version="2.0.2" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="CommunityToolkit.Common" Version="8.3.2" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui.Maps" Version="2.0.3" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Geolocation" Version="1.2.1" />
 		<PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.22.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.21" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.21" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.92" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.92" />
 		<PackageReference Include="MonkeyCache.FileStore" Version="2.1.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Plugin.Maui.AddToCalendar" Version="1.0.0" />
 		<PackageReference Include="Plugin.Maui.CalendarStore" Version="2.0.0" />
 		<PackageReference Include="Swart.ApplicationInsights.MAUI" Version="1.0.1" />
 		<PackageReference Include="Syncfusion.Maui.Carousel" Version="27.1.53" />
