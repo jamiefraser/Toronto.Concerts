@@ -94,8 +94,8 @@ namespace Toronto.Concerts.MAUI.ViewModels
             var startDate = SelectedConcert.DateAndTime;
             var endDate = SelectedConcert.DateAndTime.AddHours(2);
             var calendars = await calendarStore.GetCalendars();
-            
-            var calendar = calendars.FirstOrDefault(c => c.)
+
+            var calendar = calendars.FirstOrDefault();
             var calendarId = calendar.Id;
             var calendarEvent = new CalendarEvent(Guid.NewGuid().ToString(), calendarId, SelectedConcert.title);
             var item = await calendarStore.CreateEvent(calendarEvent);
