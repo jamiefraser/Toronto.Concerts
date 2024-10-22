@@ -36,7 +36,7 @@
         <!-- Special Notes -->
         <Label Text="{Binding SelectedConcert.spnotes}" FontSize="14" HorizontalOptions="CenterAndExpand" />
         <Button Text="Get Directions" Command="{Binding GetDirectionsCommand}" />
-        <!--<Button Text="Add to Calendar" Command="{Binding AddToCalendarCommand}" />-->
+        <Button Text="Add to Calendar" Command="{Binding AddToCalendarCommand}" />
 
         <!-- Map (LatLong) -->
         <!-- You can use a map control to display the concert location on a map -->

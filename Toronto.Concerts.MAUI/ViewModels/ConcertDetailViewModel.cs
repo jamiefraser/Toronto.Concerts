@@ -9,14 +9,20 @@ using System.Threading.Tasks;
 using Toronto.Concerts.Data;
 using Toronto.Concerts.Services;
 using Plugin.Maui.AddToCalendar;
+using Plugin.Maui.CalendarStore;
+using System.Linq;
+using CoreData;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
 namespace Toronto.Concerts.MAUI.ViewModels
 {
     public partial class ConcertDetailViewModel : ViewModelBase
     {
         private IConcertDataService _concertDataService;
-        public ConcertDetailViewModel(IConcertDataService concertDataService)
+        private ICalendarStore calendarStore;
+        public ConcertDetailViewModel(IConcertDataService concertDataService, ICalendarStore _calendarStore)
         {
             _concertDataService = concertDataService;
+            this.calendarStore = _calendarStore;
             //addToCalendar = _addToCalendar;
             concertVenue = new List<Place>();
             Place place = new Place()
@@ -87,7 +93,14 @@ namespace Toronto.Concerts.MAUI.ViewModels
         {
             var startDate = SelectedConcert.DateAndTime;
             var endDate = SelectedConcert.DateAndTime.AddHours(2);
-            //addToCalendar.CreateCalendarEvent(SelectedConcert.title,  SelectedConcert.description,SelectedConcert.venue, startDate, endDate, SelectedConcert.title);
+            var calendars = await calendarStore.GetCalendars();
+            
+            var calendar = calendars.FirstOrDefault(c => c.)
+            var calendarId = calendar.Id;
+            var calendarEvent = new CalendarEvent(Guid.NewGuid().ToString(), calendarId, SelectedConcert.title);
+            var item = await calendarStore.CreateEvent(calendarEvent);
+            System.Diagnostics.Debug.WriteLine(item);
+            await calendarStore.UpdateEvent(item, calendarEvent.Title, SelectedConcert.description, $"{SelectedConcert.address} {SelectedConcert.city}", startDate, endDate, false);
         }
     }
 }

@@ -7,6 +7,7 @@ using CommunityToolkit.Maui;
 using Syncfusion.Maui.Core.Hosting;
 using Toronto.Concerts.MAUI.Services;
 using Toronto.Concerts.MAUI.ValueConverters;
+using Plugin.Maui.CalendarStore;
 namespace Toronto.Concerts.MAUI
 {
     public static class MauiProgram
@@ -48,6 +49,8 @@ namespace Toronto.Concerts.MAUI
             builder.Services.AddSingleton<VenueToDistanceConverter, VenueToDistanceConverter>();
             builder.Services.AddSingleton<StartupViewModel, StartupViewModel>();
             builder.Services.AddSingleton<StartupPage>();
+            builder.Services.AddSingleton<ICalendarStore>(CalendarStore.Default);
+
             return builder.Build();
         }
     }
