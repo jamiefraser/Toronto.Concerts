@@ -8,11 +8,14 @@
     Shell.FlyoutBehavior="Disabled"
     Title="Concerts 416"
     NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="False"
     >
-
-    <ShellContent
-        ContentTemplate="{DataTemplate pages:StartupPage}"
-        Route="startuppage" 
-        >
-    </ShellContent>
+    <FlyoutItem FlyoutDisplayOptions="AsSingleItem">
+        <ShellContent ContentTemplate="{DataTemplate pages:StartupPage}"
+                          Route="startuppage" 
+                          Shell.BackgroundColor="AntiqueWhite"
+                          Shell.TabBarIsVisible="False"
+            >
+        </ShellContent>
+    </FlyoutItem>
 </Shell>

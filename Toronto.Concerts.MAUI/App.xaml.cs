@@ -1,12 +1,17 @@
-﻿namespace Toronto.Concerts.MAUI
+﻿using Toronto.Concerts.MAUI.Pages;
+
+namespace Toronto.Concerts.MAUI
 {
     public partial class App : Application
     {
-        public App()
+        private IServiceProvider _serviceProvider;
+        public App(IServiceProvider serviceProvider)
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            _serviceProvider = serviceProvider;
+            MainPage = new NavigationPage();
+            MainPage.Navigation.PushAsync(_serviceProvider.GetRequiredService<StartupPage>());
         }
     }
 }

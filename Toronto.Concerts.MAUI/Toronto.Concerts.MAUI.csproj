@@ -39,9 +39,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-	  <CodesignKey>iPhone Developer</CodesignKey>
-	  <CodesignProvision></CodesignProvision>
-	  <ProvisioningType>manual</ProvisioningType>
+	  <CodesignKey>Apple Development: Created via API (FYG7P4A2ML)</CodesignKey>
+	  <CodesignProvision>VS: com.relevant.concerts416 Development</CodesignProvision>
+	  <ProvisioningType>automatic</ProvisioningType>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">

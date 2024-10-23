@@ -11,10 +11,12 @@ namespace Toronto.Concerts.MAUI
     {
         int count = 0;
         private MainPageViewModel vm;
-        public MainPage(MainPageViewModel _vm, IServiceProvider serviceProvider)
+        private IServiceProvider serviceProvider;
+        public MainPage(MainPageViewModel _vm, IServiceProvider _serviceProvider)
         {
             InitializeComponent();
             vm = _vm;
+            serviceProvider = _serviceProvider;
             this.BindingContext = vm;
             vm.PropertyChanged += OnSelectedConcertChanged;
             this.Resources.Add("VenueToDistanceConverter", serviceProvider.GetRequiredService<VenueToDistanceConverter>());
@@ -32,7 +34,8 @@ namespace Toronto.Concerts.MAUI
             {
                 try
                 {
-                    Shell.Current.GoToAsync("concertdetail", true);
+                    Navigation.PushAsync(serviceProvider.GetRequiredService<ConcertDetailPage>());
+                    //Shell.Current.GoToAsync("concertdetail", true);
                     //var index = vm.Concerts.IndexOf(vm.SelectedConcert);
                     //cvConcerts.ScrollTo(position: index);
                 }
@@ -57,14 +60,14 @@ namespace Toronto.Concerts.MAUI
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var stack = Shell.Current.Navigation.NavigationStack.ToArray();
+            /*var stack = Shell.Current.Navigation.NavigationStack.ToArray();
             for (int i = stack.Length - 1; i > 0; i--)
             {
                 if (!stack[i].GetType().Equals(typeof(MainPage)))
                 {
                     Shell.Current.Navigation.RemovePage(stack[i]);
                 }
-            }
+            }*/
         }
     }
 }

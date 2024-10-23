@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:stepProgressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
              x:Class="Toronto.Concerts.MAUI.Pages.StartupPage"
-             Title="StartupPage">
+             >
     <VerticalStackLayout VerticalOptions="Center"
                          HorizontalOptions="Center">
         <stepProgressBar:SfCircularProgressBar IsIndeterminate="True"
