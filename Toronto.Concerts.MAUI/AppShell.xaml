@@ -6,12 +6,13 @@
     xmlns:local="clr-namespace:Toronto.Concerts.MAUI"
     xmlns:pages="clr-namespace:Toronto.Concerts.MAUI.Pages"
     Shell.FlyoutBehavior="Disabled"
-    Title="Toronto.Concerts.MAUI">
+    Title="Concerts 416"
+    NavigationPage.HasBackButton="False"
+    >
 
     <ShellContent
         ContentTemplate="{DataTemplate pages:StartupPage}"
         Route="startuppage" 
         >
-
     </ShellContent>
 </Shell>

@@ -6,16 +6,16 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:behaviors="clr-namespace:Toronto.Concerts.MAUI.Behaviors"
              x:Class="Toronto.Concerts.MAUI.MainPage"
-             NavigationPage.HasBackButton="False"
-             
-             >
+    >
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
     <ContentPage.Resources>
         <converters:FriendlyDateConverter x:Key="FriendlyDateConverter" x:Name="FriendlyDateConverter"/>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" x:Name="NullToVisibilityConverter"/>
         <converters:PerformerToImageConverter x:Key="PerformerToImageConverter" x:Name="PerformerToImageConverter" />
     </ContentPage.Resources>
     <VerticalStackLayout  Padding="5,5">
-        <!--<Button Clicked="Button_Clicked" Text="SOS!" />-->
         <VerticalStackLayout x:Name="svParent">
             <Picker IsEnabled="True"
                     ItemsSource="{Binding Dates}"
@@ -100,7 +100,7 @@
                     </DataTemplate>
                 </sf:SfListView.GroupHeaderTemplate>
             </sf:SfListView>
-            
-        </VerticalStackLayout> 
+
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

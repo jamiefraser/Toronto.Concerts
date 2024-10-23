@@ -7,7 +7,7 @@ namespace Toronto.Concerts.MAUI
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute("sos", typeof(SOSPage));
+            //Routing.RegisterRoute("sos", typeof(SOSPage));
             Routing.RegisterRoute("concertlocation", typeof(MapPage));
             Routing.RegisterRoute("concertdetail", typeof(ConcertDetailPage));
             Routing.RegisterRoute("mainpage", typeof(MainPage));

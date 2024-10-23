@@ -4,7 +4,11 @@
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:models="clr-namespace:Toronto.Concerts.Data"
              x:Class="Toronto.Concerts.MAUI.Pages.ConcertDetailPage"
-             Title="{Binding title}">
+             Title="{Binding SelectedConcert.title}"
+             NavigationPage.HasBackButton="True">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="True" IsEnabled="True" />
+    </Shell.BackButtonBehavior>
     <StackLayout>
         <!-- Concert Title -->
         <Label Text="{Binding SelectedConcert.title}" FontSize="24" HorizontalOptions="CenterAndExpand" />
@@ -35,8 +39,8 @@
 
         <!-- Special Notes -->
         <Label Text="{Binding SelectedConcert.spnotes}" FontSize="14" HorizontalOptions="CenterAndExpand" />
-        <Button Text="Get Directions" Command="{Binding GetDirectionsCommand}" />
-        <Button Text="Add to Calendar" Command="{Binding AddToCalendarCommand}" />
+        <Button Text="Get Directions" Command="{Binding GetDirectionsCommand}" Margin="0,10,0,0"/>
+        <Button Text="Add to Calendar" Command="{Binding AddToCalendarCommand}" Margin="0,10,0,0"/>
 
         <!-- Map (LatLong) -->
         <!-- You can use a map control to display the concert location on a map -->
@@ -45,7 +49,8 @@
                   IsShowingUser="True"
                   IsZoomEnabled="True"
                   IsScrollEnabled="True"
-                  IsTrafficEnabled="True">
+                  IsTrafficEnabled="True"
+                  Margin="0,5,0,0">
             <maps:Map.ItemTemplate>
                 <DataTemplate x:DataType="models:Place">
                     <maps:Pin Location="{Binding Location}"

@@ -39,8 +39,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
-	  <CodesignKey>iPhone Distribution: Peter Fraser (V4NK73GGWK)</CodesignKey>
-	  <CodesignProvision>iOS Team Store Provisioning Profile: com.relevant.concerts416</CodesignProvision>
+	  <CodesignKey>iPhone Developer</CodesignKey>
+	  <CodesignProvision></CodesignProvision>
 	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 

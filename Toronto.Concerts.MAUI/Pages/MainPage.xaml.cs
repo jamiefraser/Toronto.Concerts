@@ -18,6 +18,7 @@ namespace Toronto.Concerts.MAUI
             this.BindingContext = vm;
             vm.PropertyChanged += OnSelectedConcertChanged;
             this.Resources.Add("VenueToDistanceConverter", serviceProvider.GetRequiredService<VenueToDistanceConverter>());
+            NavigationPage.SetHasBackButton(this, false);
         }
 
         private void OnSelectedConcertChanged(object sender, PropertyChangedEventArgs e)
@@ -64,10 +65,6 @@ namespace Toronto.Concerts.MAUI
                     Shell.Current.Navigation.RemovePage(stack[i]);
                 }
             }
-        }
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("mainpage",true);
         }
     }
 }

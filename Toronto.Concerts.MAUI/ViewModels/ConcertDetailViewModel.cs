@@ -11,7 +11,6 @@ using Toronto.Concerts.Services;
 using Plugin.Maui.AddToCalendar;
 using Plugin.Maui.CalendarStore;
 using System.Linq;
-using CoreData;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 namespace Toronto.Concerts.MAUI.ViewModels
 {
