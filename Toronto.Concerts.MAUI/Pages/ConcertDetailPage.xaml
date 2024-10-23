@@ -11,7 +11,7 @@
     </Shell.BackButtonBehavior>
     <StackLayout>
         <!-- Concert Title -->
-        <Label Text="{Binding SelectedConcert.title}" FontSize="24" HorizontalOptions="CenterAndExpand" />
+        <!--<Label Text="{Binding SelectedConcert.title}" FontSize="24" HorizontalOptions="CenterAndExpand" />-->
 
         <!-- Presenter -->
         <Label Text="{Binding SelectedConcert.presenter}" FontSize="18" HorizontalOptions="CenterAndExpand" />
