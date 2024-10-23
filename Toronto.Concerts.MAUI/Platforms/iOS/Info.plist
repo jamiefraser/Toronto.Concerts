@@ -41,7 +41,7 @@
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Allow Concerts 416 to access events to your calendar</string>
 	<key>CFBundleVersion</key>
-	<string>10.15</string>
+	<string>10.17</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Allow Concerts 416 to access and write events in your calendar</string>
 </dict>

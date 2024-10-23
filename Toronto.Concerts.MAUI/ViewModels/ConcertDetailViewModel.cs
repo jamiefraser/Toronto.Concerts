@@ -53,7 +53,18 @@ namespace Toronto.Concerts.MAUI.ViewModels
             OnPropertyChanged(nameof(SelectedConcert));
             OnPropertyChanged(nameof(ConcertVenue));
         }
-        public Concert SelectedConcert => _concertDataService.SelectedConcert;
+        public Concert SelectedConcert
+        {
+            get
+            {
+                return _concertDataService.SelectedConcert; 
+            }
+            set
+            {
+                _concertDataService.SelectedConcert = value;
+                OnPropertyChanged(nameof(SelectedConcert));
+            }
+        }
         private List<Place> concertVenue;
         public List<Place> ConcertVenue
         {

@@ -19,4 +19,9 @@ public partial class ConcertDetailPage : ContentPage
         vm.UpdateConcertAndVenue();
         this.map.MoveToRegion(new Microsoft.Maui.Maps.MapSpan(new Location(vm.ConcertVenue[0].Location.Latitude, vm.ConcertVenue[0].Location.Longitude), 0.01, 0.01));
     }
+    protected override void OnDisappearing()
+    {
+        vm.SelectedConcert = null;
+        base.OnDisappearing();
+    }
 }
