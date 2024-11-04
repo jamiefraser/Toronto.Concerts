@@ -37,9 +37,11 @@
         <CarouselView ItemsSource="{Binding Concerts, Mode=OneWay}"
                       x:Name="cvConcerts"
                       VerticalOptions="Fill"
-                      RemainingItemsThreshold="5"
                       IsSwipeEnabled="True"
                       CurrentItem="{Binding SelectedConcert}"
+                      Loop="False"
+                      RemainingItemsThreshold="10"  
+                      IsBounceEnabled="True"
                           >
                 <CarouselView.ItemTemplate>
                     <DataTemplate>

@@ -18,7 +18,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
         private IConcertDataService _concertDataService;
         private UserLocationService userLocationService;
         private ICalendarStore calendarStore;
-
+        private object lockThis = new object();
         public MainPageViewModel(IConcertDataService concertDataService, UserLocationService _userLocationService, ICalendarStore _calendarStore)
         {
             _concertDataService = concertDataService;
@@ -51,25 +51,29 @@ namespace Toronto.Concerts.MAUI.ViewModels
             {
                 if (value != null)
                 {
-                    _concertDataService.SelectedConcert = value;
-                    selectedconcert = value;
-                    //OnPropertyChanged(nameof(SelectedConcert));
-                    concertVenue = new List<Place>();
-                    Place place = new Place()
+                    lock (lockThis)
                     {
-                        Address = _concertDataService.SelectedConcert?.address,
-                        Description = _concertDataService.SelectedConcert?.venue,
-                        Location = new Microsoft.Maui.Devices.Sensors.Location()
+                        _concertDataService.SelectedConcert = value;
+                        selectedconcert = value;
+                        //OnPropertyChanged(nameof(SelectedConcert));
+                        concertVenue = new List<Place>();
+                        Place place = new Place()
                         {
-                            Latitude = double.Parse(_concertDataService.SelectedConcert?.LatLong.Split(',')[0]),
-                            Longitude = double.Parse(_concertDataService.SelectedConcert?.LatLong.Split(',')[1])
+                            Address = _concertDataService.SelectedConcert?.address,
+                            Description = _concertDataService.SelectedConcert?.venue,
+                            Location = new Microsoft.Maui.Devices.Sensors.Location()
+                            {
+                                Latitude = double.Parse(_concertDataService.SelectedConcert?.LatLong.Split(',')[0]),
+                                Longitude = double.Parse(_concertDataService.SelectedConcert?.LatLong.Split(',')[1])
+                            }
+                        };
+                        ConcertVenue.Add(place);
+                        OnPropertyChanged(nameof(ConcertVenue));
+                        if (selecteddate.Date != selectedconcert.DateAndTime.Date)
+                        {
+                            selecteddate = selectedconcert.DateAndTime;
+                            OnPropertyChanged(nameof(SelectedDate));
                         }
-                    };
-                    ConcertVenue.Add(place);
-                    OnPropertyChanged(nameof(ConcertVenue));
-                    if (selecteddate != selectedconcert.DateAndTime)
-                    {
-                        SelectedDate = selectedconcert.DateAndTime;
                     }
                 }
             }
@@ -110,12 +114,18 @@ namespace Toronto.Concerts.MAUI.ViewModels
             }
             set
             {
-                if (selecteddate != value)
                 {
-                    selecteddate = value;
-                    OnPropertyChanged(nameof(SelectedDate));
-                    OnPropertyChanged(nameof(Concerts));
-                    //SelectedConcert = concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date));
+                    lock (lockThis)
+                    {
+                        selecteddate = value;
+                        OnPropertyChanged(nameof(SelectedDate));
+                        OnPropertyChanged(nameof(Concerts));
+                        var targetDate = concerts.OrderBy(c => c.DateAndTime).FirstOrDefault().DateAndTime.Date;
+                        if (selectedconcert != concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date)))
+                        {
+                            selectedconcert = concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date));
+                        }
+                    }
                 }
             }
         }
@@ -129,12 +139,12 @@ namespace Toronto.Concerts.MAUI.ViewModels
                 if(selecteddate.Equals(DateTime.MinValue))return concerts.Where(c => c.DateAndTime >= DateTime.Now).ToList<Concert>();
                 else
                 {
-                    return concerts.Where(c => c.DateAndTime >= selecteddate).ToList<Concert>();
+                    return concerts.Where(c => c.DateAndTime >= selecteddate).OrderBy(c => c.DateAndTime).ToList<Concert>();
                 }
             }
             set
             {
-                concerts = value;
+                concerts = value.OrderBy(c => c.DateAndTime).ToList<Concert>();
                 OnPropertyChanged(nameof(Concerts));
             }
         }
