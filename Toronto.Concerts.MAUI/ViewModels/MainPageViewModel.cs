@@ -124,6 +124,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
                         if (selectedconcert != concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date)))
                         {
                             selectedconcert = concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date));
+                            OnPropertyChanged(nameof(SelectedConcert));
                         }
                     }
                 }
@@ -139,7 +140,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
                 if(selecteddate.Equals(DateTime.MinValue))return concerts.Where(c => c.DateAndTime >= DateTime.Now).ToList<Concert>();
                 else
                 {
-                    return concerts.Where(c => c.DateAndTime >= selecteddate).OrderBy(c => c.DateAndTime).ToList<Concert>();
+                    return concerts;
                 }
             }
             set

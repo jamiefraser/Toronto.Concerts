@@ -64,7 +64,7 @@ namespace Toronto.Concerts.MAUI
             {
                 try
                 {
-                    Navigation.PushAsync(serviceProvider.GetRequiredService<ConcertDetailPage>());
+                    //Navigation.PushAsync(serviceProvider.GetRequiredService<ConcertDetailPage>());
                     //Shell.Current.GoToAsync("concertdetail", true);
                     //var index = vm.Concerts.IndexOf(vm.SelectedConcert);
                     //cvConcerts.ScrollTo(position: index);

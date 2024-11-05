@@ -69,28 +69,28 @@
                                 <RowDefinition Height="5*" />
                             </Grid.RowDefinitions>
                             <!-- Concert Title -->
-                            <Label Text="{Binding title}" FontSize="24" HorizontalOptions="CenterAndExpand" Grid.Row="0" />
+                            <Label Text="{Binding title}" FontSize="18" HorizontalOptions="CenterAndExpand" Grid.Row="0" />
 
                             <!-- Presenter -->
-                            <Label Text="{Binding presenter}" FontSize="18" HorizontalOptions="CenterAndExpand"  Grid.Row="1"/>
+                            <!--<Label Text="{Binding presenter}" FontSize="18" HorizontalOptions="CenterAndExpand"  Grid.Row="1"/>-->
 
                             <!-- Concert Date and Time -->
-                            <Label Text="{Binding GroupableDate}" FontSize="16" HorizontalOptions="CenterAndExpand" Grid.Row="2"/>
+                            <Label Text="{Binding GroupableDate}" FontSize="20" HorizontalOptions="CenterAndExpand" Grid.Row="2"/>
 
                             <!-- Venue -->
-                            <Label Text="{Binding venue}" FontSize="16" HorizontalOptions="CenterAndExpand" Grid.Row="3"/>
+                            <Label Text="{Binding venue}" FontSize="20" HorizontalOptions="CenterAndExpand" Grid.Row="3"/>
 
                             <!-- Description -->
                             <Label Text="{Binding description}" FontSize="14"  HorizontalOptions="CenterAndExpand" Grid.Row="4"/>
 
                             <!-- Performers -->
-                            <Label Text="{Binding performers}" FontSize="14" HorizontalOptions="CenterAndExpand" Grid.Row="5"/>
+                            <Label Text="{Binding performers}" FontSize="20" HorizontalOptions="CenterAndExpand" Grid.Row="5"/>
 
                             <!-- Ticket Prices -->
-                            <Label Text="{Binding prices}" FontSize="24" HorizontalOptions="CenterAndExpand" Grid.Row="6"/>
+                            <Label Text="{Binding prices}" FontSize="16" HorizontalOptions="CenterAndExpand" Grid.Row="6"/>
 
                             <!-- Address -->
-                            <Label Text="{Binding address}" FontSize="14" HorizontalOptions="CenterAndExpand" Grid.Row="7"/>
+                            <Label Text="{Binding address}" FontSize="18" HorizontalOptions="CenterAndExpand" Grid.Row="7"/>
 
                             <!-- Phone Number -->
                             <Label Text="{Binding phone}" FontSize="14" HorizontalOptions="CenterAndExpand" Grid.Row="8"/>
