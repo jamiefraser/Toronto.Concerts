@@ -72,12 +72,14 @@ namespace Toronto.Concerts.MAUI.ViewModels
                         if (selecteddate.Date != selectedconcert.DateAndTime.Date)
                         {
                             selecteddate = selectedconcert.DateAndTime;
+                            changingSelectedDateProgramatically = true;
                             OnPropertyChanged(nameof(SelectedDate));
                         }
                     }
                 }
             }
         }
+        private bool changingSelectedDateProgramatically = false;
         private List<Place> concertVenue;
         public List<Place> ConcertVenue
         {
@@ -121,11 +123,13 @@ namespace Toronto.Concerts.MAUI.ViewModels
                         OnPropertyChanged(nameof(SelectedDate));
                         OnPropertyChanged(nameof(Concerts));
                         var targetDate = concerts.OrderBy(c => c.DateAndTime).FirstOrDefault().DateAndTime.Date;
-                        if (selectedconcert != concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date)))
+                        if (selectedconcert != concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date)) && !changingSelectedDateProgramatically)
                         {
+                            System.Diagnostics.Debug.WriteLine("setting the selectedconcert to first concert of selected date");
                             selectedconcert = concerts.FirstOrDefault(c => c.DateAndTime.Date.Equals(selecteddate.Date));
                             OnPropertyChanged(nameof(SelectedConcert));
                         }
+                        changingSelectedDateProgramatically = false;
                     }
                 }
             }
@@ -159,7 +163,7 @@ namespace Toronto.Concerts.MAUI.ViewModels
                 Concerts = _concertDataService.Concerts;
                 SelectedConcert = concerts.Last();
                 SelectedConcert = concerts.FirstOrDefault();
-                SelectedDate = (DateTime)(Concerts.First()?.DateAndTime);
+                selecteddate = (DateTime)(Concerts.First()?.DateAndTime);
                 OnPropertyChanged(nameof(GroupedConcerts));
                 // SelectedConcert = concerts.FirstOrDefault();
                 OnPropertyChanged(nameof(Count));

@@ -42,6 +42,7 @@
                       Loop="False"
                       RemainingItemsThreshold="10"  
                       IsBounceEnabled="True"
+                      IsScrollAnimated="False"
                           >
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
