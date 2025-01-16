@@ -49,33 +49,40 @@ namespace Toronto.Concerts.MAUI.ViewModels
             }
             set
             {
-                if (value != null)
+                try
                 {
-                    lock (lockThis)
+                    if (value != null)
                     {
-                        _concertDataService.SelectedConcert = value;
-                        selectedconcert = value;
-                        //OnPropertyChanged(nameof(SelectedConcert));
-                        concertVenue = new List<Place>();
-                        Place place = new Place()
+                        lock (lockThis)
                         {
-                            Address = _concertDataService.SelectedConcert?.address,
-                            Description = _concertDataService.SelectedConcert?.venue,
-                            Location = new Microsoft.Maui.Devices.Sensors.Location()
+                            _concertDataService.SelectedConcert = value;
+                            selectedconcert = value;
+                            //OnPropertyChanged(nameof(SelectedConcert));
+                            concertVenue = new List<Place>();
+                            Place place = new Place()
                             {
-                                Latitude = double.Parse(_concertDataService.SelectedConcert?.LatLong.Split(',')[0]),
-                                Longitude = double.Parse(_concertDataService.SelectedConcert?.LatLong.Split(',')[1])
+                                Address = _concertDataService.SelectedConcert?.address,
+                                Description = _concertDataService.SelectedConcert?.venue,
+                                Location = new Microsoft.Maui.Devices.Sensors.Location()
+                                {
+                                    Latitude = !string.IsNullOrEmpty(_concertDataService.SelectedConcert?.LatLong) ? double.Parse(_concertDataService.SelectedConcert?.LatLong?.Split(',')[0]) : 0d,
+                                    Longitude = !string.IsNullOrEmpty(_concertDataService.SelectedConcert?.LatLong) ? double.Parse(_concertDataService.SelectedConcert?.LatLong?.Split(',')[1]) : 0d
+                                }
+                            };
+                            ConcertVenue.Add(place);
+                            OnPropertyChanged(nameof(ConcertVenue));
+                            if (selecteddate.Date != selectedconcert.DateAndTime.Date)
+                            {
+                                selecteddate = selectedconcert.DateAndTime;
+                                changingSelectedDateProgramatically = true;
+                                OnPropertyChanged(nameof(SelectedDate));
                             }
-                        };
-                        ConcertVenue.Add(place);
-                        OnPropertyChanged(nameof(ConcertVenue));
-                        if (selecteddate.Date != selectedconcert.DateAndTime.Date)
-                        {
-                            selecteddate = selectedconcert.DateAndTime;
-                            changingSelectedDateProgramatically = true;
-                            OnPropertyChanged(nameof(SelectedDate));
                         }
                     }
+                }
+                catch(Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
                 }
             }
         }

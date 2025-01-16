@@ -85,6 +85,10 @@ namespace concerts.functions
                         }
                     }
                 }
+                if(string.IsNullOrEmpty(c.LatLong))
+                {
+                    c.LatLong = "0,0";
+                }
             }
             return concerts;
         }
