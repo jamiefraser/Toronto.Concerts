@@ -60,6 +60,8 @@ namespace Toronto.Concerts.MAUI.ViewModels
                             //OnPropertyChanged(nameof(SelectedConcert));
                             concertVenue = new List<Place>();
                             Place place = new Place()
+
+
                             {
                                 Address = _concertDataService.SelectedConcert?.address,
                                 Description = _concertDataService.SelectedConcert?.venue,
